@@ -20,7 +20,7 @@
 
 4. Dentro de esta Shell colocamos "cd <Ubicacion del backend>"
 
-5. Insertamos en la Shell: "mysqldump -u root -p --no-data backend-tecnopiezas > estructura.sql" (Tal cual ya que ese el nombre de la BD)
+5. Insertamos en la Shell: "mysqldump -u root -p backend-tecnopiezas > estructura.sql" (Tal cual ya que ese el nombre de la BD)
 
 6. Le damos ENTER si nos pide una clave
 
