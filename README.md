@@ -1,4 +1,4 @@
-Guía para Configurar y Levantar el Backend
+<span style="color: red"> Guía para Configurar y Levantar el Backend </span>
 
 Esta guía te ayudará a configurar y levantar el backend de tu proyecto en ordenadores nuevos o ya configurados. Asegúrate de seguir estos pasos en orden para tener tu backend funcionando correctamente.
 
