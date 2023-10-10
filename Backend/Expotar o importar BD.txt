@@ -1,4 +1,4 @@
-===== IMPORTAR BD ======
+===== IMPORTAR BD =======
 
 1. Ejecuta los mismos pasos de expotar BD hasta el paso numero 4
 
