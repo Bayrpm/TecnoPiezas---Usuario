@@ -1,7 +1,7 @@
 <ion-header></ion-header>
 
 <ion-content style="background-color: #002d72;">
-    <swiper-container navigation="true" pagination="true" scrollbar="true" autoplay='{"delay": 3000}' loop="true">
+    <swiper-container navigation="true" pagination="true" scrollbar="true" autoplay='{"delay": 2500}' loop="true">
         <div slot="container-start"></div>
         <div slot="container-end"></div>
         <swiper-slide swiperSlide *ngFor="let image of images">
@@ -12,7 +12,7 @@
     <script>
         var mySwiper = new Swiper('.swiper-container', {
             autoplay: {
-                delay: 3000, // Cambio de imagen cada 3 segundos
+                delay: 2500, // Cambio de imagen cada 3 segundos
             },
             pagination: {
                 el: '.swiper-pagination',
