@@ -1,3 +1,15 @@
+===== IMPORTAR BD ======
+
+1. Ejecuta los mismos pasos de expotar BD hasta el paso numero 4
+
+2. Debemos tener nuestro archivo SQL "estructura.sql" en la carpeta de Backend
+
+3. En nuestra shell con el paso 2 listo, debemos ejecutar: "mysql -u root -p backend-tecnopiezas < estructura.sql"
+
+4. Si pide contraseña o algo, le damos en enter.
+
+
+
 ==== EXPORTAR BD ======
 
 1.- Abrimos xampp
@@ -13,15 +25,3 @@
 6. Le damos ENTER si nos pide una clave
 
 7. LISTO tendremos un archivo SQL en nuestra carpeta backend llamado "estructura.sql"
-
-
-
-===== IMPORTAR BD ======
-
-1. Ejecuta los mismos pasos de expotar BD hasta el paso numero 4
-
-2. Debemos tener nuestro archivo SQL "estructura.sql" en la carpeta de Backend
-
-3. En nuestra shell con el paso 2 listo, debemos ejecutar: "mysql -u root -p < estructura.sql"
-
-4. Si pide contraseña o algo, le damos en enter.
