@@ -21,6 +21,7 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
 2. Activación del Entorno Virtual: Activa el entorno virtual con el siguiente comando:
 
    source env/bin/activate   # En sistemas Linux/Mac
+   
    env\Scripts\activate      # En sistemas Windows
 
    El entorno virtual debe estar activo cada vez que trabajes en tu proyecto.
