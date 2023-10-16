@@ -5,7 +5,7 @@
 export class CLLocales {
     // si no Inicializo los valores, da Error
     // Por eso es el constructor por obligación
-    id: Number;
+    id_locales: number;
     direccion: string;
     descripcion: string;
     correo: string;
@@ -14,7 +14,7 @@ export class CLLocales {
   
     // si no Inicializo los valores, da Error
       constructor(obj: any){
-          this.id = obj && obj.id || null
+          this.id_locales = obj && obj.id || null
           this.direccion = obj && obj.direccion || null
           this.descripcion = obj && obj.descripcion || null
           this.correo = obj && obj.correo || null

@@ -23,9 +23,10 @@ class ListaProductos(generics.ListAPIView):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
     
-class ListaLocales(generics.ListAPIView):
-     queryset = Locales.objects.all()
-     serializer_class = LocalesSerializer
+
+class ListaLocales(generics.ListCreateAPIView):
+    queryset = Locales.objects.all()
+    serializer_class = LocalesSerializer
 
 class ListaCategorias(generics.ListAPIView):
     queryset = Categoria.objects.all()
@@ -68,3 +69,8 @@ class VistaProductoDAE(generics.RetrieveUpdateDestroyAPIView):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
     lookup_field = 'producto_id'
+
+class VistaLocalesDAE(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Locales.objects.all()
+    serializer_class = LocalesSerializer
+    lookup_field = 'id_locales'

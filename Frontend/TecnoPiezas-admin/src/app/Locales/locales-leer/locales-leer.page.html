@@ -16,6 +16,7 @@
         <ion-item *ngFor="let local of locales">
             <ion-card>
                 <ion-card-header>
+
                     <ion-card-title>{{local.direccion}}</ion-card-title>
                 </ion-card-header>
 
@@ -23,6 +24,7 @@
                     <ion-item>
                         <p>Descripción : </p>
                         <p class="ion-padding-start">{{local.descripcion}}</p>
+
                     </ion-item>
                     <ion-item>
                         <p>Correo : </p>
@@ -34,10 +36,14 @@
                     </ion-item>
 
 
-                    <ion-button type="button" shape="round" color="primary" expand="block" routerLink="/locales-actualizar/{{local.id}}">Editar</ion-button>
-                    <ion-button type="button" shape="round" color="danger" expand="block" (click)="deleteLocales(+local.id)">
+                    <ion-button type="button" shape="round" color="primary" expand="block" routerLink="/locales-actualizar/{{local.id_locales}}">Editar</ion-button>
+                    <ion-button type="button" shape="round" color="danger" expand="block" (click)="deleteLocales(local.id_locales)">
                         Eliminar
                     </ion-button>
+
+
+
+
 
 
                 </ion-card-content>

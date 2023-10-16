@@ -74,23 +74,24 @@
     <div class="container">
         <h4>Te puede interesar...</h4>
         <ion-grid [fixed]="true">
-            <ion-row>
-                <ion-col *ngFor="let producto of productos" size="6">
-                    <ion-card>
+            <ion-row class="ion-no-padding">
+                <ion-col size="6" *ngFor="let producto of productos" class="ion-no-padding">
+                    <ion-card class="custom-card">
                         <ion-card-header>
                             <ion-card-title>{{ producto.nombre }}</ion-card-title>
-
                         </ion-card-header>
-                        <ion-card-content>
-                            <ion-item>
-                                <p>Precio :</p>
+                        <ion-card-content class="ion-no-padding">
+                            <img [src]="producto.imagen" alt="Descripción de la imagen" style="width: 90%; display: flex; justify-content: center; border-radius: 5px;">
+                            <ion-item class="ion-no-padding">
                                 <p class="ion-padding-start">Precio: {{ producto.precio | currency:'CLP' }}</p>
-
                             </ion-item>
                         </ion-card-content>
                     </ion-card>
                 </ion-col>
             </ion-row>
+
+
+
         </ion-grid>
     </div>
 

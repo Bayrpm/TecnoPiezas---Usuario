@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { CLLocales } from '../imodel/CLLocales';
-import { localesService } from '../locales.servicio';
+import { AdminService } from '../../admin.service';
 
 @Component({
   selector: 'app-locales-actualizar',
@@ -14,26 +13,27 @@ import { localesService } from '../locales.servicio';
 export class LocalesActualizarPage implements OnInit {
   localesForm!: FormGroup;
   locales: CLLocales = {
-    id: NaN,
+    id_locales: NaN,
     direccion: '',
     descripcion: '',
     correo: '',
     telefono: '',
   };
-  id: any = '';
+  id_locales: any = '';
 
   constructor(
-    public restApi: localesService,
+    public restApi: AdminService,
     public loadingController: LoadingController,
     public alertController: AlertController,
     public route: ActivatedRoute,
     public router: Router,
     private formBuilder: FormBuilder
-  ) { }
+  ) {}
+
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
-    this.getLocal(this.id);
+    this.id_locales = this.route.snapshot.params['id_locales'];
+    this.getLocal(this.id_locales);
     this.localesForm = this.formBuilder.group({
       loc_direc: [null, Validators.required],
       loc_desp: [null, Validators.required],
@@ -43,7 +43,7 @@ export class LocalesActualizarPage implements OnInit {
   }
 
   async onFormSubmit(formData: any) {
-    this.locales.id = this.id;
+    this.locales.id_locales = this.id_locales;
     this.locales.direccion = formData.loc_direc;
     this.locales.descripcion = formData.loc_desp;
     this.locales.correo = formData.loc_correo;
@@ -74,28 +74,25 @@ export class LocalesActualizarPage implements OnInit {
     const loading = await this.loadingController.create({
       message: 'Cargando...',
     });
-
+  
     await loading.present();
-
-    await this.restApi.updateLocales(this.id, this.locales).subscribe({
-      next: (res) => {
-        if (this.id) {
-          this.restApi.localUpdated.emit(); // Emitir el evento de actualización
-          this.router.navigate(['/locales-leer']);
-        }
-      },
-      complete: () => {
+  
+    this.restApi.updateLocales(this.id_locales, this.locales).subscribe(
+      (res) => {
+        this.getLocal(this.id_locales); // Cargar los datos actualizados
+        this.router.navigate(['/locales-leer']);
+        this.restApi.notifyLocalUpdated(); // Notificar la actualización
         loading.dismiss();
       },
-      error: (err) => {
+      (err) => {
         console.log(err);
         loading.dismiss();
-      },
-    });
+      }
+    );
   }
 
-  async getLocal(id: string) {
-    await this.restApi.getLocal(id).subscribe(
+  async getLocal(id_locales: any) {
+    await this.restApi.getLocal(id_locales).subscribe(
       (data) => {
         this.locales = data;
       },

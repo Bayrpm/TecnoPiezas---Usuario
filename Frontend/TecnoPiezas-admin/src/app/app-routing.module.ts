@@ -33,11 +33,11 @@ const routes: Routes = [
     loadChildren: () => import('./Locales/locales-leer/locales-leer.module').then(m => m.LocalesLeerPageModule)
   },
   {
-    path: 'locales-leer/:id',
+    path: 'locales-leer/:id_locales',
     loadChildren: () => import('./Locales/locales-leer/locales-leer.module').then(m => m.LocalesLeerPageModule)
   },
   {
-    path: 'locales-actualizar/:id',
+    path: 'locales-actualizar/:id_locales',
     loadChildren: () => import('./Locales/locales-actualizar/locales-actualizar.module').then(m => m.LocalesActualizarPageModule)
   },
 ];
