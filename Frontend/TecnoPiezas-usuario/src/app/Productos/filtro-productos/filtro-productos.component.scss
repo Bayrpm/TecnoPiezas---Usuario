@@ -1,0 +1,46 @@
+.filtro-productos {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    background: #002d72;
+    height: 100px;
+    width: auto;
+}
+
+.buscador,
+.selector {
+    background: #00aeef;
+    height: 30px;
+    flex: 1;
+    margin: 10px 5px 5px;
+    color: #000;
+    font-weight: 530;
+    /* Añade espacio entre los elementos si lo deseas */
+}
+
+.buscador,
+button {
+    border-radius: 15px;
+}
+
+.selector,
+.selector2 {
+    border-radius: 8px;
+}
+
+.buscador::placeholder {
+    text-align: center;
+    color: #000;
+    font-weight: 600;
+}
+
+.selector2,
+button {
+    background: #00aeef;
+    height: 30px;
+    margin: 1px 5px 8px;
+    flex: 1;
+    color: #000;
+    font-weight: 600;
+}

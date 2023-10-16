@@ -1,14 +1,14 @@
 <div class="filtro-productos">
-    <input [(ngModel)]="busqueda" placeholder="Buscar por nombre">
+    <input class="buscador" [(ngModel)]="busqueda" placeholder="Buscar por nombre">
 
     <!-- Selector de categoría -->
-    <select [(ngModel)]="categoria" (change)="onCategoriaSeleccionada()">
+    <select class="selector" [(ngModel)]="categoria" (change)="onCategoriaSeleccionada()">
     <option value="">Todas las categorías</option>
     <option *ngFor="let cat of categorias" [value]="cat.categoria_id">{{ cat.nombre_categoria }}</option>
   </select>
 
     <!-- Selector de subcategoría -->
-    <select [(ngModel)]="subcategoria">
+    <select class="selector2" [(ngModel)]="subcategoria">
     <option value="">Todas las subcategorías</option>
     <option *ngFor="let subcat of subcategorias" [value]="subcat.subcategoria_id">
       {{ subcat.nombre_subcategoria }}

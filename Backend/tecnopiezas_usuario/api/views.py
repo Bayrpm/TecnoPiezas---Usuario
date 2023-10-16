@@ -13,13 +13,19 @@ from rest_framework.response import Response
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
 
-from .serializers import ProductoSerializer, CategoriaSerializer, SubcategoriaSerializer
+from .serializers import ProductoSerializer, LocalesSerializer, CategoriaSerializer, SubcategoriaSerializer
 
 # Vista basada en una clase
+
+
 
 class ListaProductos(generics.ListAPIView):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
+    
+class ListaLocales(generics.ListAPIView):
+     queryset = Locales.objects.all()
+     serializer_class = LocalesSerializer
 
 class ListaCategorias(generics.ListAPIView):
     queryset = Categoria.objects.all()
