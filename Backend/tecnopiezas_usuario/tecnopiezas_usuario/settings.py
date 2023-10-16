@@ -29,10 +29,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8100",  # Nuestro dominio de angular
+    "http://localhost:8100", 
+    "http://localhost:8000", # Nuestro dominio de angular
 ]
 
 CORS_ALLOW_METHODS = [

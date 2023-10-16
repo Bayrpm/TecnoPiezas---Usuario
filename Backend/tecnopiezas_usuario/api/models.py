@@ -34,3 +34,13 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class Locales(models.Model):
+    id_locales = models.AutoField(primary_key=True)
+    direccion = models.CharField(max_length=80)
+    descripcion = models.TextField(blank=True, null=True)
+    correo = models.CharField(max_length=80)
+    telefono = models.CharField(max_length=19)
+
+    def __str__(self):
+        return self.direccion

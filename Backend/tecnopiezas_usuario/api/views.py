@@ -13,13 +13,20 @@ from rest_framework.response import Response
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
 
-from .serializers import ProductoSerializer, CategoriaSerializer, SubcategoriaSerializer
+from .serializers import ProductoSerializer, LocalesSerializer, CategoriaSerializer, SubcategoriaSerializer
 
 # Vista basada en una clase
+
+
 
 class ListaProductos(generics.ListAPIView):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
+    
+
+class ListaLocales(generics.ListCreateAPIView):
+    queryset = Locales.objects.all()
+    serializer_class = LocalesSerializer
 
 class ListaCategorias(generics.ListAPIView):
     queryset = Categoria.objects.all()
@@ -62,3 +69,8 @@ class VistaProductoDAE(generics.RetrieveUpdateDestroyAPIView):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
     lookup_field = 'producto_id'
+
+class VistaLocalesDAE(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Locales.objects.all()
+    serializer_class = LocalesSerializer
+    lookup_field = 'id_locales'
