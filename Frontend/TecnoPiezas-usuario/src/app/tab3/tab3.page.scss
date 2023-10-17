@@ -1,0 +1,35 @@
+.custom-div {
+    background-color: #002d72;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.buttons-container {
+    margin: 2px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.custom-button {
+    color: white;
+    font-weight: 700;
+    margin: 0 auto;
+    border-radius: 15px;
+    width: 48%;
+}
+
+.cupon-container {
+    margin: 5px auto;
+    width: 90%;
+}
+
+.centered-item {
+    border-radius: 10px;
+}
+
+.tabs {
+    margin: 0 0 auto;
+}

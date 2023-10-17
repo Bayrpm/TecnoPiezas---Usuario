@@ -11,7 +11,7 @@ class ProductoSerializer(serializers.ModelSerializer):
     def get_imagen(self, obj):
         # Construye la URL completa de la imagen
         return self.context['request'].build_absolute_uri(obj.imagen.url)
-    
+
 class LocalesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Locales

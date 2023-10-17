@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MaxValueValidator 
 # Modelo de Categoria
 
 class Categoria(models.Model):
@@ -30,10 +30,10 @@ class Producto(models.Model):
     imagen = models.ImageField(upload_to='productos/', blank=True, null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, default=1)
     subcategoria = models.ForeignKey(Subcategoria, on_delete=models.CASCADE, default=1)
-
-
+    
     def __str__(self):
         return self.nombre
+
     
 class Locales(models.Model):
     id_locales = models.AutoField(primary_key=True)

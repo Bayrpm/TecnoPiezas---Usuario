@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input  } from '@angular/core';
 import { ProductosService } from '../../productos.service';
 import { Producto } from '../../model/ClProducto';
 
@@ -8,6 +8,7 @@ import { Producto } from '../../model/ClProducto';
   styleUrls: ['./ver-productos.page.scss'],
 })
 export class VerProductosPage implements OnInit {
+
 
   productos: Producto[] = [];
 
@@ -25,9 +26,13 @@ export class VerProductosPage implements OnInit {
       .subscribe((data) => {
         this.productos = data || [];
       });
+    
   }
 
   aplicarFiltros(productosFiltrados: any[]): void {
     this.productosFiltrados = productosFiltrados;
   }
+
+
+
 }
