@@ -80,18 +80,17 @@
                         <ion-card-header>
                             <ion-card-title>{{ producto.nombre }}</ion-card-title>
                         </ion-card-header>
-                        <ion-card-content class="ion-no-padding">
-                            <img [src]="producto.imagen" alt="Descripción de la imagen" style="width: 90%; display: flex; justify-content: center; border-radius: 5px;">
+                        <ion-card-content class="ion-no-padding" style="display: flex; flex-direction: column; align-items: center;">
+                            <img class="imagen centered-image" [src]="producto.imagen" alt="Descripción de la imagen">
                             <ion-item class="ion-no-padding">
                                 <p class="ion-padding-start">Precio: {{ producto.precio | currency:'CLP' }}</p>
                             </ion-item>
                         </ion-card-content>
+
+                        <ion-button expand="full">Añadir al carrito</ion-button>
                     </ion-card>
                 </ion-col>
             </ion-row>
-
-
-
         </ion-grid>
     </div>
 

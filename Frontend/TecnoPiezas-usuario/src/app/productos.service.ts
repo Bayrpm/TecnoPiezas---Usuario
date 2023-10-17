@@ -45,6 +45,7 @@ export class ProductosService {
     );
   }
 
+  
   obtenerSubcategoriasPorCategoria(categoriaId: number): Observable<Subcategoria[]> {
     const url = `http://localhost:8000/api/subcategorias_por_categoria/${categoriaId}`;
     
@@ -86,5 +87,6 @@ export class ProductosService {
   actualizarProductosFiltrados(productos: any[]): void {
     this.productosFiltradosSubject.next(productos);
   }
+
 
 }

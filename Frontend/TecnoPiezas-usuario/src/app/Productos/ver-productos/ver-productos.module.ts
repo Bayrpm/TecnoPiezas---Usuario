@@ -10,6 +10,7 @@ import { VerProductosPage } from './ver-productos.page';
 
 import { FiltroProductosComponent } from '../filtro-productos/filtro-productos.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +18,6 @@ import { FiltroProductosComponent } from '../filtro-productos/filtro-productos.c
     IonicModule,
     VerProductosPageRoutingModule
   ],
-  declarations: [VerProductosPage, FiltroProductosComponent]
+  declarations: [VerProductosPage, FiltroProductosComponent,]
 })
 export class VerProductosPageModule {}
