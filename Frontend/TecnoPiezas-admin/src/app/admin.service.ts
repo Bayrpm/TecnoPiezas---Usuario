@@ -71,4 +71,9 @@ export class AdminService {
   getSubcategoriasPorCategoria(categoriaId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/subcategorias_por_categoria/${categoriaId}`);
   }
+
+  login(loginData: { username: string; password: string }): Observable<any> {
+    const url = `${this.apiUrl}/login/`; // Reemplaza con la ruta correcta en tu backend
+    return this.http.post(url, loginData);
+  }
 }
