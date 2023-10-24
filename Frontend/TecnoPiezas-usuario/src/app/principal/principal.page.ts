@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../productos.service';
 import { Producto } from '../model/ClProducto';
 
@@ -8,8 +8,7 @@ import { Producto } from '../model/ClProducto';
   templateUrl: 'principal.page.html',
   styleUrls: ['principal.page.scss']
 })
-export class principalPage {
-
+export class PrincipalPage implements OnInit {
   images: string[] = [
     'https://media.spdigital.cl/file_upload/Mobile_Hero_2_2bdd4d61.png',
     'https://media.spdigital.cl/file_upload/Mobile_Hero_3_40708f1a.png',
@@ -17,18 +16,23 @@ export class principalPage {
     // Agrega más URL de imágenes aquí
   ];
   productos: Producto[] = [];
+
   constructor(private productosService: ProductosService) {}
+
   ngOnInit(): void {
     this.cargarProductos();
   }
+
   cargarProductos() {
-    this.productosService
-      .obtenerTodosLosProductos()
-      .subscribe((data) => {
-        this.productos = data || [];
-      });
+    this.productosService.obtenerTodosLosProductos().subscribe((data) => {
+      this.productos = data || [];
+    });
   }
- 
+
+agregarAlCarrito(producto: Producto) {
+  // Asegúrate de que 'producto' sea un objeto válido antes de llamar a esta función
+  this.productosService.agregarAlCarrito(producto);
 }
 
-
+  
+}

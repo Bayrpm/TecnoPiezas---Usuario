@@ -32,7 +32,7 @@
 
 
 
-    <div id="accesos">
+    <ion-grid id="accesos">
         <ion-grid [fixed]="true">
             <ion-row>
                 <ion-col>
@@ -69,9 +69,9 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-    </div>
+    </ion-grid>
 
-    <div class="container">
+    <ion-grid class="container">
         <h4>Te puede interesar...</h4>
         <ion-grid [fixed]="true">
             <ion-row class="ion-no-padding">
@@ -87,11 +87,10 @@
                             </ion-item>
                         </ion-card-content>
 
-                        <ion-button expand="full">Añadir al carrito</ion-button>
+                        <ion-button expand="full" (click)="agregarAlCarrito(producto)">Añadir al carrito</ion-button>
                     </ion-card>
                 </ion-col>
             </ion-row>
         </ion-grid>
-    </div>
-
+    </ion-grid>
 </ion-content>
