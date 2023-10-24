@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-title>Modificar</ion-title>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+      <ion-buttons slot="end">
+          <ion-back-button text="Volver" defaultHref="/bodega-home"></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="bodegaForm" (ngSubmit)="onFormSubmit(bodegaForm.value)">
+      <ion-item>
+          <ion-label position="floating">Dirección</ion-label>
+          <ion-input type="text" placeholder="Dirección de la Bodega" formControlName="direccion" [(ngModel)]="bodega.direccion"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">Capacidad</ion-label>
+          <ion-input type="number" placeholder="Capacidad de la Bodega" formControlName="capacidad" [(ngModel)]="bodega.capacidad"></ion-input>
+      </ion-item>
+      <!-- Otros campos si los hay -->
+      <ion-button type="submit" shape="round" color="primary" expand="block" [disabled]="!bodegaForm.valid">Guardar</ion-button>
+  </form>
+</ion-content>

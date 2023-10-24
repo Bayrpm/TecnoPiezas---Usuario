@@ -1,5 +1,9 @@
 from rest_framework import serializers
+<<<<<<< Updated upstream
 from .models import Producto, Categoria, Subcategoria
+=======
+from .models import Producto, Categoria, Subcategoria, Locales, Bodegas, DetalleBodega
+>>>>>>> Stashed changes
 
 class ProductoSerializer(serializers.ModelSerializer):
     imagen = serializers.SerializerMethodField()
@@ -21,3 +25,17 @@ class SubcategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subcategoria
         fields = '__all__'
+<<<<<<< Updated upstream
+=======
+
+class BodegasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bodegas
+        fields = '__all__'
+
+class DetalleBodegaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DetalleBodega
+        fields = '__all__'
+
+>>>>>>> Stashed changes

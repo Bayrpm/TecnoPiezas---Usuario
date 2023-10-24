@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Agregar Bodega</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="bodegasForm" (ngSubmit)="onFormSubmit()">
+      <ion-item>
+          <ion-label position="floating">Dirección</ion-label>
+          <ion-input type="text" placeholder="Dirección de la Bodega" formControlName="direccion" [(ngModel)]="bodegas.direccion"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">Capacidad</ion-label>
+          <ion-input type="number" placeholder="Capacidad de la bodega" formControlName="capacidad" [(ngModel)]="bodegas.capacidad"></ion-input>
+      </ion-item>
+      <!-- Otros campos de la bodega -->
+      <ion-button type="submit" shape="round" color="primary" expand="block" [disabled]="!bodegasForm.valid">
+          Enviar
+      </ion-button>
+  </form>
+</ion-content>

@@ -20,6 +20,54 @@ const routes: Routes = [
   { path: 'productos/editar/:id', component: EditarProductoComponent },
   { path: 'productos/crear', component: CrearProductoComponent },
   { path: 'productos/detalles/:id', component: DetallesProductoComponent },
+<<<<<<< Updated upstream
+=======
+  {
+    path: 'locales-home',
+    loadChildren: () => import('./Locales/locales-home/locales-home.module').then(m => m.LocalesHomePageModule)
+  },
+  {
+    path: 'locales-agregar',
+    loadChildren: () => import('./Locales/locales-agregar/locales-agregar.module').then(m => m.LocalesAgregarPageModule)
+  },
+  {
+    path: 'locales-leer',
+    loadChildren: () => import('./Locales/locales-leer/locales-leer.module').then(m => m.LocalesLeerPageModule)
+  },
+  {
+    path: 'locales-leer/:id_locales',
+    loadChildren: () => import('./Locales/locales-leer/locales-leer.module').then(m => m.LocalesLeerPageModule)
+  },
+  {
+    path: 'locales-actualizar/:id_locales',
+    loadChildren: () => import('./Locales/locales-actualizar/locales-actualizar.module').then(m => m.LocalesActualizarPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'bodegas-home',
+    loadChildren: () => import('./Bodegas/bodegas-home/bodegas-home.module').then( m => m.BodegasHomePageModule)
+  },
+  {
+    path: 'bodegas-actualizar',
+    loadChildren: () => import('./Bodegas/bodegas-actualizar/bodegas-actualizar.module').then( m => m.BodegasActualizarPageModule)
+  },
+  {
+    path: 'bodegas-agregar',
+    loadChildren: () => import('./Bodegas/bodegas-agregar/bodegas-agregar.module').then( m => m.BodegasAgregarPageModule)
+  },
+  {
+    path: 'bodegas-home',
+    loadChildren: () => import('./Bodegas/bodegas-home/bodegas-home.module').then( m => m.BodegasHomePageModule)
+  },
+  {
+    path: 'bodegas-leer',
+    loadChildren: () => import('./Bodegas/bodegas-leer/bodegas-leer.module').then( m => m.BodegasLeerPageModule)
+  },
+
+>>>>>>> Stashed changes
 ];
 
 @NgModule({
