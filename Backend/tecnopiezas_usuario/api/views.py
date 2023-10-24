@@ -14,17 +14,14 @@ from rest_framework.response import Response
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
 
-<<<<<<< Updated upstream
-from .serializers import ProductoSerializer, CategoriaSerializer, SubcategoriaSerializer
-=======
 from .serializers import ProductoSerializer, LocalesSerializer, CategoriaSerializer, SubcategoriaSerializer, DetalleBodegaSerializer, BodegasSerializer
-
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 
 from rest_framework.authtoken.models import Token
+
 from rest_framework import generics
 
 from rest_framework import status
@@ -32,13 +29,18 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 
 
->>>>>>> Stashed changes
-
 # Vista basada en una clase
+
+
 
 class ListaProductos(generics.ListAPIView):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
+    
+
+class ListaLocales(generics.ListCreateAPIView):
+    queryset = Locales.objects.all()
+    serializer_class = LocalesSerializer
 
 class ListaCategorias(generics.ListAPIView):
     queryset = Categoria.objects.all()
@@ -81,8 +83,6 @@ class VistaProductoDAE(generics.RetrieveUpdateDestroyAPIView):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
     lookup_field = 'producto_id'
-<<<<<<< Updated upstream
-=======
 
 class VistaLocalesDAE(generics.RetrieveUpdateDestroyAPIView):
     queryset = Locales.objects.all()
@@ -193,4 +193,3 @@ class DetalleBodega(APIView):
 
 
 ############################################# Fin Gerente compra #####################################################
->>>>>>> Stashed changes

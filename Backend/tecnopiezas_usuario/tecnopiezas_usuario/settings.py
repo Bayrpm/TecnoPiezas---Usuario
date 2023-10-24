@@ -29,10 +29,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8100",  # Nuestro dominio de angular
+    "http://localhost:8100", 
+    "http://localhost:8000", # Nuestro dominio de angular
 ]
 
 CORS_ALLOW_METHODS = [
@@ -60,8 +61,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'corsheaders',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'login': '5/minute',  # Limitar los intentos de inicio de sesión
+    }
+}
 
 
 MIDDLEWARE = [

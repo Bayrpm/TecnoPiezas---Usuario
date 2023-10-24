@@ -1,53 +1,77 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable,Subject  } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AdminService {
-
   private apiUrl = 'http://localhost:8000/api';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // Método para obtener una lista de todos los productos
+  // Productos
+
   getProductos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/productos/`);
   }
 
-  // Método para obtener detalles de un producto específico por su ID
   getProducto(producto_id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/productos/${producto_id}/`);
   }
 
-  // Método para crear un nuevo producto
   crearProducto(productoData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/productos/`, productoData);
   }
 
-  // Método para actualizar un producto existente por su ID
   actualizarProducto(producto_id: number, productoData: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/productos/${producto_id}/`, productoData);
   }
 
-  // Método para eliminar un producto por su ID
   eliminarProducto(producto_id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/productos/${producto_id}`);
   }
 
-  // Metodo para obtener las categorias
+  // Locales
+
+  private localUpdatedSubject: Subject<void> = new Subject<void>();
+
+  getLocales(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/locales/`);
+  }
+
+  getLocal(id_locales: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/locales/${id_locales}/`);
+  }
+
+  addLocales(localesData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/locales/`, localesData);
+  }
+
+  updateLocales(id_locales: number, localesData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/locales/${id_locales}/`, localesData);
+  }
+
+  deleteLocales(id_locales: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/locales/${id_locales}`);
+  }
+  notifyLocalUpdated() {
+    this.localUpdatedSubject.next();
+  }
+  onLocalUpdated(): Observable<void> {
+    return this.localUpdatedSubject.asObservable();
+  }
+
+  // Categorías y Subcategorías
+
   getCategorias(): Observable<any> {
     return this.http.get(`${this.apiUrl}/categorias/`);
   }
 
-  // Metodo para obtener las subcategorias por su categoria
   getSubcategoriasPorCategoria(categoriaId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/subcategorias_por_categoria/${categoriaId}`);
   }
 
-<<<<<<< Updated upstream
-=======
   login(loginData: { username: string; password: string }): Observable<any> {
     const url = `${this.apiUrl}/login/`; // Reemplaza con la ruta correcta en tu backend
     return this.http.post(url, loginData);
@@ -84,7 +108,7 @@ export class AdminService {
   onBodegaUpdated(): Observable<void> {
     return this.bodegaUpdatedSubject.asObservable();
   }
->>>>>>> Stashed changes
+
 }
 
 

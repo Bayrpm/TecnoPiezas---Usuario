@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-back-button text="Volver" defaultHref="/locales-home"></ion-back-button>
+
+        </ion-buttons>
+        <ion-title>Nuestros locales</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-list>
+        <ion-item *ngFor="let local of locales">
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>{{local.direccion}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-item>
+                        <p>Descripción : </p>
+                        <p class="ion-padding-start">{{local.descripcion}}</p>
+
+                    </ion-item>
+                    <ion-item>
+                        <p>Correo : </p>
+                        <p class="ion-padding-start">{{local.correo}}</p>
+                    </ion-item>
+                    <ion-item>
+                        <p>Teléfono : </p>
+                        <p class="ion-padding-start">{{local.telefono}}</p>
+                    </ion-item>
+
+
+                    <ion-button type="button" shape="round" color="primary" expand="block" routerLink="/locales-actualizar/{{local.id_locales}}">Editar</ion-button>
+                    <ion-button type="button" shape="round" color="danger" expand="block" (click)="deleteLocales(local.id_locales)">
+                        Eliminar
+                    </ion-button>
+                </ion-card-content>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+    <ng-template #noLocales>
+        <div class="no-locales">
+            <p style="color: #f1f1ff; text-align: center; font-weight: 700;">No se han agregado locales. Por favor, agrega uno.</p>
+            <ion-button routerLink="/locales-agregar" style="display: flex; justify-content: center;" shape="round" color="primary">Agregar Local</ion-button>
+        </div>
+    </ng-template>
+</ion-content>

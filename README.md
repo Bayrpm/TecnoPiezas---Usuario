@@ -37,6 +37,9 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
    - djangorestframework para crear una API REST de manera sencilla:
      pip install djangorestframework
 
+   - Pillow para poder manejar las imagenes:
+     pip install pillow
+
 Iniciar el Backend:
 
 Con el entorno virtual activado, puedes seguir estos pasos para iniciar tu backend:

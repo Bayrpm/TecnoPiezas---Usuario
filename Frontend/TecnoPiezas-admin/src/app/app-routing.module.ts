@@ -9,7 +9,7 @@ import { EditarProductoComponent } from './producto/editar-producto/editar-produ
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -20,8 +20,6 @@ const routes: Routes = [
   { path: 'productos/editar/:id', component: EditarProductoComponent },
   { path: 'productos/crear', component: CrearProductoComponent },
   { path: 'productos/detalles/:id', component: DetallesProductoComponent },
-<<<<<<< Updated upstream
-=======
   {
     path: 'locales-home',
     loadChildren: () => import('./Locales/locales-home/locales-home.module').then(m => m.LocalesHomePageModule)
@@ -66,8 +64,6 @@ const routes: Routes = [
     path: 'bodegas-leer',
     loadChildren: () => import('./Bodegas/bodegas-leer/bodegas-leer.module').then( m => m.BodegasLeerPageModule)
   },
-
->>>>>>> Stashed changes
 ];
 
 @NgModule({

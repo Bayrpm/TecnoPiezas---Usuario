@@ -1,34 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
-
+import { LoginPage } from '../login/login.page';
 const routes: Routes = [
   {
     path: 'tabs',
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'principal',
+        loadChildren: () => import('../principal/principal.module').then(m => m.principalPageModule)
       },
       {
-        path: 'tab2', // Nombre de la ruta para la lista de productos
+        path: 'product', // Nombre de la ruta para la lista de productos
         loadChildren: () => import('../Productos/ver-productos/ver-productos.module').then(m => m.VerProductosPageModule)
       },
       {
         path: 'tab3',
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
+      { path: 'login', component: LoginPage },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/principal',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/principal',
     pathMatch: 'full'
   }
 ];

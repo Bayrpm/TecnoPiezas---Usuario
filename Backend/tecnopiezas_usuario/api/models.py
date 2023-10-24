@@ -1,4 +1,8 @@
 from django.db import models
+from django.core.validators import MaxValueValidator
+
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import Group, Permission
 
 # Modelo de Categoria
 
@@ -30,12 +34,9 @@ class Producto(models.Model):
     imagen = models.ImageField(upload_to='productos/', blank=True, null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, default=1)
     subcategoria = models.ForeignKey(Subcategoria, on_delete=models.CASCADE, default=1)
-
-
+    
     def __str__(self):
         return self.nombre
-<<<<<<< Updated upstream
-=======
 
     
 class Locales(models.Model):
@@ -46,7 +47,24 @@ class Locales(models.Model):
     telefono = models.CharField(max_length=19)
 
     def __str__(self):
+      return self.direccion
+ 
+class Bodegas(models.Model):
+    id_bodega = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=255)
+    capacidad = models.PositiveIntegerField()  # Capacidad de la bodega en productos
+
+    def __str__(self):
         return self.direccion
+    
+class DetalleBodega(models.Model):
+    id_detalle_bodega = models.AutoField(primary_key=True)
+    bodega = models.ForeignKey(Bodegas, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    stock = models.PositiveIntegerField(default=0)  # Campo para el stock del producto
+
+    def __str__(self):
+        return f"Detalle de {self.bodega.nombre} - Producto: {self.producto.nombre}"
     
 class AdministradorManager(BaseUserManager):
     def create_user(self, username, correo, password=None, **extra_fields):
@@ -144,21 +162,5 @@ class ClientePerfil(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, unique=True)
     cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE, unique=True) ## De esta forma nos aseguramos que un cliente solamente tenga 1 usuario.
 
-class Bodegas(models.Model):
-    id_bodega = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=255)
-    capacidad = models.PositiveIntegerField()  # Capacidad de la bodega en productos
 
-    def __str__(self):
-        return self.direccion
     
-class DetalleBodega(models.Model):
-    id_detalle_bodega = models.AutoField(primary_key=True)
-    bodega = models.ForeignKey(Bodegas, on_delete=models.CASCADE)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    stock = models.PositiveIntegerField(default=0)  # Campo para el stock del producto
-
-    def __str__(self):
-        return f"Detalle de {self.bodega.nombre} - Producto: {self.producto.nombre}"
-    
->>>>>>> Stashed changes

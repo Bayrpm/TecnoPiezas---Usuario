@@ -1,0 +1,96 @@
+<ion-content style="background-color: #002d72;">
+    <swiper-container navigation="true" pagination="true" scrollbar="true" autoplay='{"delay": 2500}' loop="true">
+        <div class=".swiper-button-next" slot="container-start"></div>
+        <div class=".swiper-button-prev" slot="container-end"></div>
+        <swiper-slide swiperSlide *ngFor="let image of images">
+            <img [src]="image" alt="Image">
+        </swiper-slide>
+    </swiper-container>
+
+    <script>
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: {
+                delay: 2500, // Cambio de imagen cada 2.5 segundos
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            loop: true, // Habilitar el bucle infinito
+        });
+
+        // Agrega un controlador de eventos para reiniciar la transición automática
+        mySwiper.on('slideChange', function() {
+            if (!mySwiper.autoplay.running) {
+                mySwiper.autoplay.start();
+            }
+        });
+    </script>
+
+
+
+    <ion-grid id="accesos">
+        <ion-grid [fixed]="true">
+            <ion-row>
+                <ion-col>
+                    <ion-fab>
+                        <ion-fab-button class="centered-fab-button">
+                            <ion-icon name="pricetags"></ion-icon>
+                        </ion-fab-button>
+                        <p style="margin-top: 4px; text-align: center;">Ofertas</p>
+                    </ion-fab>
+                </ion-col>
+                <ion-col>
+                    <ion-fab>
+                        <ion-fab-button class="centered-fab-button">
+                            <ion-icon name="ribbon" style="display: flex; "></ion-icon>
+                        </ion-fab-button>
+                        <p style="margin-top: 4px; text-align: center;">Mas <br> Ofertas</p>
+                    </ion-fab>
+                </ion-col>
+                <ion-col>
+                    <ion-fab>
+                        <ion-fab-button>
+                            <ion-icon name="star"></ion-icon>
+                        </ion-fab-button>
+                        <p style="margin-top: 4px; margin-left: -6px; text-align: center;">Mas <br>populares</p>
+                    </ion-fab>
+                </ion-col>
+                <ion-col>
+                    <ion-fab>
+                        <ion-fab-button>
+                            <ion-icon name="time"></ion-icon>
+                        </ion-fab-button>
+                        <p style="margin-top: 4px; text-align: center;">Recientes</p>
+                    </ion-fab>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-grid>
+
+    <ion-grid class="container">
+        <h4>Te puede interesar...</h4>
+        <ion-grid [fixed]="true">
+            <ion-row class="ion-no-padding">
+                <ion-col size="6" *ngFor="let producto of productos" class="ion-no-padding">
+                    <ion-card class="custom-card">
+                        <ion-card-header>
+                            <ion-card-title>{{ producto.nombre }}</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content class="ion-no-padding" style="display: flex; flex-direction: column; align-items: center;">
+                            <img class="imagen centered-image" [src]="producto.imagen" alt="Descripción de la imagen">
+                            <ion-item class="ion-no-padding">
+                                <p class="ion-padding-start">Precio: {{ producto.precio | currency:'CLP' }}</p>
+                            </ion-item>
+                        </ion-card-content>
+
+                        <ion-button expand="full" (click)="agregarAlCarrito(producto)">Añadir al carrito</ion-button>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-grid>
+</ion-content>
