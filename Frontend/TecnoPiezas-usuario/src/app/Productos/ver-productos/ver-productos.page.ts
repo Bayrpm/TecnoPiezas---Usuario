@@ -1,4 +1,4 @@
-import { Component, OnInit,Input  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../../productos.service';
 import { Producto } from '../../model/ClProducto';
 
@@ -8,12 +8,9 @@ import { Producto } from '../../model/ClProducto';
   styleUrls: ['./ver-productos.page.scss'],
 })
 export class VerProductosPage implements OnInit {
-
-
   productos: Producto[] = [];
-
   productosFiltrados: any[] = [];
-  
+
   constructor(private productosService: ProductosService) {}
 
   ngOnInit(): void {
@@ -21,18 +18,12 @@ export class VerProductosPage implements OnInit {
   }
 
   cargarProductos() {
-    this.productosService
-      .obtenerTodosLosProductos()
-      .subscribe((data) => {
-        this.productos = data || [];
-      });
-    
+    this.productosService.obtenerTodosLosProductos().subscribe((data) => {
+      this.productos = data || [];
+    });
   }
 
   aplicarFiltros(productosFiltrados: any[]): void {
     this.productosFiltrados = productosFiltrados;
   }
-
-
-
 }

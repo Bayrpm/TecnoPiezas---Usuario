@@ -2,7 +2,7 @@ import { IonicModule } from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA,NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { principalPage } from './principal.page';
+import { PrincipalPage } from './principal.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { principalPageRoutingModule } from './principal-routing.module';
@@ -19,7 +19,7 @@ register();
     principalPageRoutingModule,
 
   ],
-  declarations: [principalPage],
+  declarations: [PrincipalPage],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class principalPageModule {}
