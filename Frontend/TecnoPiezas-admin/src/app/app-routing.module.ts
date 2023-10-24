@@ -9,7 +9,7 @@ import { EditarProductoComponent } from './producto/editar-producto/editar-produ
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -40,6 +40,11 @@ const routes: Routes = [
     path: 'locales-actualizar/:id_locales',
     loadChildren: () => import('./Locales/locales-actualizar/locales-actualizar.module').then(m => m.LocalesActualizarPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+
 ];
 
 @NgModule({

@@ -15,6 +15,18 @@ from django.shortcuts import get_object_or_404
 
 from .serializers import ProductoSerializer, LocalesSerializer, CategoriaSerializer, SubcategoriaSerializer
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+
+from rest_framework.authtoken.models import Token
+
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+
+
+
 # Vista basada en una clase
 
 
@@ -74,3 +86,54 @@ class VistaLocalesDAE(generics.RetrieveUpdateDestroyAPIView):
     queryset = Locales.objects.all()
     serializer_class = LocalesSerializer
     lookup_field = 'id_locales'
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def custom_obtain_auth_token(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    print(f"Username: {username}, Password: {password}")
+
+    if username is None or password is None:
+        return Response({'error': 'Debes proporcionar un nombre de usuario y una contraseña'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Autentica al usuario
+    user = authenticate(username=username, password=password)
+
+    if user is not None:
+        if user.is_active:
+            # Asigna un token al usuario si no tiene uno
+            token, created = Token.objects.get_or_create(user=user)
+
+            # Obtiene el rol del usuario (reemplaza 'tipo_administrador' con el nombre real del campo)
+            try:
+                role = Administrador.objects.get(username=username).tipo_administrador
+            except Administrador.DoesNotExist:
+                return Response({'error': 'No se encontró el usuario'}, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response({'token': token.key, 'role': role}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'La cuenta del usuario no está activa'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Credenciales incorrectas'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    user = authenticate(request, username=username, password=password)
+
+    if user is not None:
+        if user.is_active:
+            token, created = Token.objects.get_or_create(user=user)
+            user.token = token.key
+            user.save()
+
+            role = user.tipo_administrador
+            return Response({'token': token.key, 'role': role}, status=200)
+        else:
+            return Response({'detail': 'La cuenta del usuario no está activa.'}, status=400)
+    else:
+        return Response({'detail': 'Credenciales incorrectas o usuario inexistente.'}, status=400)
