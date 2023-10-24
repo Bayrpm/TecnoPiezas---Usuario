@@ -4,12 +4,13 @@
             <ion-menu-button class="menu"></ion-menu-button>
         </ion-buttons>
         <ion-buttons slot="secondary">
-            <ion-buttons>
-                <ion-icon slot="icon-only" name="person-circle" style="font-size: 45px; "></ion-icon>
-            </ion-buttons>
+            <ion-button (click)="goToLogin()">
+                <ion-icon name="person-circle" style="font-size: 45px;"></ion-icon>
+            </ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
+
 <ion-content>
     <ion-tabs>
         <ion-tab-bar slot="bottom">
