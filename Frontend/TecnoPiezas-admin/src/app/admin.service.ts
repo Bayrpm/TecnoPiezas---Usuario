@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable,Subject  } from 'rxjs';
+import { Observable,Subject, tap  } from 'rxjs';
+
+import { Router } from '@angular/router';
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
   private apiUrl = 'http://localhost:8000/api';
+  router: any;
 
   constructor(private http: HttpClient) {}
 
@@ -73,8 +78,14 @@ export class AdminService {
   }
 
   login(loginData: { username: string; password: string }): Observable<any> {
-    const url = `${this.apiUrl}/login/`; // Reemplaza con la ruta correcta en tu backend
-    return this.http.post(url, loginData);
+    const url = `${this.apiUrl}/login/`;
+    return this.http.post(url, loginData).pipe(
+      tap((response: any) => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+        }
+      })
+    );
   }
 
   // Bodega ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////

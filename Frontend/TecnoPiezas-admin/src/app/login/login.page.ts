@@ -20,30 +20,34 @@ export class LoginPage implements OnInit {
   }
 
   onLogin() {
+    console.log("Login data:", this.loginData); // Verifica si los datos de inicio de sesión se envían correctamente
+
     this.adminService.login(this.loginData).subscribe(
       (response: { token: string; role: string; }) => {
-        // Guarda el token en el almacenamiento local
-        localStorage.setItem('token', response.token);
-  
+        console.log("Login response:", response); // Registra la respuesta del servidor
+
         // Redirige al usuario a la página de inicio o a la página correspondiente según su rol
         if (response.role === 'administrador') {
-          this.router.navigate(['/locales-home']);
+          this.router.navigate(['/login']);
         } else if (response.role === 'gerente') {
-          this.router.navigate(['/locales-home']);
+          this.router.navigate(['/login']);
         }
       },
       (error: any) => {
+        console.log("Error response:", error); // Registra los errores en la consola
+
         if (error.status === 400) {
           if (error.error && error.error.detail) {
-            // El servidor respondió con un mensaje de error personalizado
             console.error('Error de inicio de sesión:', error.error.detail);
+          } else if (error.error && error.error.non_field_errors) {
+            console.error('Error de inicio de sesión:', error.error.non_field_errors);
           } else {
-            // Error genérico de inicio de sesión
             console.error('Error de inicio de sesión: Credenciales incorrectas o usuario inexistente.');
           }
+        } else if (error.status === 0) {
+          console.error('Error de inicio de sesión: No se pudo conectar al servidor. Verifica tu conexión a internet o intenta nuevamente más tarde.');
         } else {
-          // Otro tipo de error, como problemas de red
-          console.error('Error de inicio de sesión: No se pudo conectar al servidor.');
+          console.error('Error de inicio de sesión: Error inesperado. Comunícate con el soporte técnico.');
         }
       }
     );

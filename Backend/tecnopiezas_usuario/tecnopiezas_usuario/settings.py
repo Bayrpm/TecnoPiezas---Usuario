@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'tecnopiezas_usuario.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'backend-tecnopiezasss',
+        'NAME': 'backend-tecnopiezas',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -125,6 +125,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'api.Administrador'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

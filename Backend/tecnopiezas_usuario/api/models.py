@@ -128,21 +128,6 @@ class Usuario(models.Model):
     def __str__(self):
         return self.username
 
-class Usuario(models.Model):
-    usuario_id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=30, unique=True, null=False)
-    password = models.CharField(max_length=30)
-    correo = models.EmailField(unique=True, null=False)
-    fecha_creacion = models.DateField(auto_now_add=True)
-
-    def save(self, *args, **kwargs):
-        # Formatea la fecha de creación como "día, mes y año" (DD/MM/YYYY)
-        self.fecha_creacion = self.fecha_creacion.strftime('%d/%m/%Y')
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.username
-
 class Cliente(models.Model):
     cliente_id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=30)
