@@ -76,4 +76,39 @@ export class AdminService {
     const url = `${this.apiUrl}/login/`; // Reemplaza con la ruta correcta en tu backend
     return this.http.post(url, loginData);
   }
+
+  // Bodega ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  private bodegaUpdatedSubject: Subject<void> = new Subject<void>();
+
+  getBodegas(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/bodegas/`);
+  }
+
+  getBodega(id_bodega: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/bodegas/${id_bodega}/`);
+  }
+
+  addBodega(bodegaData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/bodegas/`, bodegaData);
+  }
+
+  updateBodega(id_bodega: number, bodegaData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/bodegas/${id_bodega}/`, bodegaData);
+  }
+
+  deleteBodega(id_bodega: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/bodegas/${id_bodega}/`);
+  }
+
+  notifyBodegaUpdated() {
+    this.bodegaUpdatedSubject.next();
+  }
+
+  onBodegaUpdated(): Observable<void> {
+    return this.bodegaUpdatedSubject.asObservable();
+  }
+
 }
+
+

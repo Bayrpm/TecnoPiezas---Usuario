@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'tecnopiezas_usuario.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'backend-tecnopiezas',
+        'NAME': 'backend-tecnopiezasss',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

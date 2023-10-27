@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Producto, Categoria, Subcategoria, Locales
+
+from .models import Producto, Categoria, Subcategoria, Locales, Bodegas, DetalleBodega
 
 class ProductoSerializer(serializers.ModelSerializer):
     imagen = serializers.SerializerMethodField()
@@ -27,3 +28,12 @@ class SubcategoriaSerializer(serializers.ModelSerializer):
         model = Subcategoria
         fields = '__all__'
 
+class BodegasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bodegas
+        fields = '__all__'
+
+class DetalleBodegaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DetalleBodega
+        fields = '__all__'

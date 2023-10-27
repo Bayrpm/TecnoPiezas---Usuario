@@ -2,6 +2,7 @@ import json
 from typing import Any
 from django.http import JsonResponse
 from django.views import View
+from .models import DetalleBodega
 from .models import *
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -13,7 +14,7 @@ from rest_framework.response import Response
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
 
-from .serializers import ProductoSerializer, LocalesSerializer, CategoriaSerializer, SubcategoriaSerializer
+from .serializers import ProductoSerializer, LocalesSerializer, CategoriaSerializer, SubcategoriaSerializer, DetalleBodegaSerializer, BodegasSerializer
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -21,10 +22,11 @@ from django.contrib.auth import authenticate, login
 
 from rest_framework.authtoken.models import Token
 
+from rest_framework import generics
+
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-
 
 
 # Vista basada en una clase
@@ -137,3 +139,57 @@ def login(request):
             return Response({'detail': 'La cuenta del usuario no está activa.'}, status=400)
     else:
         return Response({'detail': 'Credenciales incorrectas o usuario inexistente.'}, status=400)
+
+############################################# Bodega #####################################################
+class ListaBodegas(generics.ListCreateAPIView):
+    queryset = Bodegas.objects.all()
+    serializer_class = BodegasSerializer
+
+class VistaBodegasDAE(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Bodegas.objects.all()
+    serializer_class = BodegasSerializer
+    lookup_field = 'id_bodega'
+
+    #def delete(self, request, *args, **kwargs):
+        #instance = self.get_object()
+
+        ## Realizar acciones adicionales antes de eliminar la bodega si es necesario
+        ## Por ejemplo, puedes verificar si hay productos en la bodega antes de eliminarla
+        #if instance.productos.count() > 0:
+        ## Cambiamos el mensaje para indicar que no se puede eliminar la bodega si hay productos asociados
+            #return Response({'detail': 'No se puede eliminar la bodega porque tiene productos asociados.'},
+                    #status=status.HTTP_400_BAD_REQUEST)
+
+        ## Llamada al método 'destroy' para eliminar la bodega
+        #self.perform_destroy(instance)
+        #return Response(status=status.HTTP_204_NO_CONTENT)
+
+############################################# Fin Bodega #####################################################
+
+############################################# Detalle Bodega #####################################################
+
+class DetalleBodega(APIView):
+    def get(self, request, id_detalle_bodega):
+        try:
+            detalle_bodega = DetalleBodega.objects.get(id=id_detalle_bodega)
+            detalle = {
+                'id_detalle_bodega': detalle_bodega.id,
+                'id_producto': detalle_bodega.producto.id,  # ID del producto relacionado
+                'stock': detalle_bodega.stock_producto  # Stock del producto en el detalle de la bodega
+            }
+            return Response(detalle)
+        except DetalleBodega.DoesNotExist:
+            return Response({'detail': 'El detalle de bodega no existe.'}, status=404)
+        
+"""class DetalleBodegaDAE(generics.RetrieveUpdateDestroyAPIView):
+    queryset = DetalleBodega.objects.all()
+    serializer_class = DetalleBodegaSerializer
+    lookup_field = 'id_detalle_bodega'"""
+
+############################################# Fin Detalle Bodega #####################################################
+
+############################################# Gerente compra #####################################################
+
+
+
+############################################# Fin Gerente compra #####################################################

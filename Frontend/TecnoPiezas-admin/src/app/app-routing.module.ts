@@ -44,7 +44,26 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
-
+  {
+    path: 'bodegas-home',
+    loadChildren: () => import('./Bodegas/bodegas-home/bodegas-home.module').then( m => m.BodegasHomePageModule)
+  },
+  {
+    path: 'bodegas-actualizar',
+    loadChildren: () => import('./Bodegas/bodegas-actualizar/bodegas-actualizar.module').then( m => m.BodegasActualizarPageModule)
+  },
+  {
+    path: 'bodegas-agregar',
+    loadChildren: () => import('./Bodegas/bodegas-agregar/bodegas-agregar.module').then( m => m.BodegasAgregarPageModule)
+  },
+  {
+    path: 'bodegas-home',
+    loadChildren: () => import('./Bodegas/bodegas-home/bodegas-home.module').then( m => m.BodegasHomePageModule)
+  },
+  {
+    path: 'bodegas-leer',
+    loadChildren: () => import('./Bodegas/bodegas-leer/bodegas-leer.module').then( m => m.BodegasLeerPageModule)
+  },
 ];
 
 @NgModule({
