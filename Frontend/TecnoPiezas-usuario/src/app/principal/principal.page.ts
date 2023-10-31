@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../productos.service';
 import { Producto } from '../model/ClProducto';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -17,8 +19,8 @@ export class PrincipalPage implements OnInit {
   ];
   productos: Producto[] = [];
 
-  constructor(private productosService: ProductosService) {}
-
+  constructor(private productosService: ProductosService, private router: Router) {}
+  
   ngOnInit(): void {
     this.cargarProductos();
   }
@@ -29,10 +31,13 @@ export class PrincipalPage implements OnInit {
     });
   }
 
+  navegarAOtraPagina() {
+    this.router.navigate(['/descripcion/1']);
+  }
+
 agregarAlCarrito(producto: Producto) {
   // Asegúrate de que 'producto' sea un objeto válido antes de llamar a esta función
   this.productosService.agregarAlCarrito(producto);
 }
 
-  
 }
