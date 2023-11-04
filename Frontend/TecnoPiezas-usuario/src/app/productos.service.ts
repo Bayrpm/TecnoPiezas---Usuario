@@ -153,7 +153,7 @@ export class ProductosService {
         localStorage.setItem('carrito', JSON.stringify(this.carrito));
       }
     }
-}
+  }
 
 
 }

@@ -1,6 +1,6 @@
+from . import views
 from django.urls import path
 from .views import *
-from . import views
 
 
 urlpatterns = [
@@ -13,12 +13,10 @@ urlpatterns = [
     path('productos_filtrados/', ListaProductosFiltrados.as_view(), name='productos-filtrados'),
     path('productos/filtro/', ListaProductosFiltrados.as_view(), name='lista_productos_filtrados'),
     path('productos/<int:producto_id>/', VistaProductoDAE.as_view(), name='vista-producto-dae'),
-
-    path('login/', login, name='login'),
   
     path('detallebodega/', DetalleBodega.as_view(), name='detalle_bodega'),
     #path('detallebodega/<int:id_detalle_bodega>/', DetalleBodegaDAE.as_view(), name='detalle-bodega-dae')
 
-    #path('login/', custom_obtain_auth_token, name='login'),
+
 
 ]
