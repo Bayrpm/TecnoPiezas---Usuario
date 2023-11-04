@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable,Subject, tap  } from 'rxjs';
+import { Observable,Subject, catchError, map, throwError  } from 'rxjs';
 
 import { Router } from '@angular/router';
 
@@ -75,17 +75,6 @@ export class AdminService {
 
   getSubcategoriasPorCategoria(categoriaId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/subcategorias_por_categoria/${categoriaId}`);
-  }
-
-  login(loginData: { username: string; password: string }): Observable<any> {
-    const url = `${this.apiUrl}/login/`;
-    return this.http.post(url, loginData).pipe(
-      tap((response: any) => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-        }
-      })
-    );
   }
 
   // Bodega ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
