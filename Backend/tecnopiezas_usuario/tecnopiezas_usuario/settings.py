@@ -114,10 +114,10 @@ WSGI_APPLICATION = 'tecnopiezas_usuario.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'backend-tecnopiezas',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'TecnoPiezas',
+        'USER': 'admin',
+        'PASSWORD': 'admin1234',
+        'HOST': 'tecno-piezas.clvurfghvcpy.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
