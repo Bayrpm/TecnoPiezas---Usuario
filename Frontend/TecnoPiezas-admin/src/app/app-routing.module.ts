@@ -63,7 +63,8 @@ const routes: Routes = [
   {
     path: 'bodegas-leer',
     loadChildren: () => import('./Bodegas/bodegas-leer/bodegas-leer.module').then( m => m.BodegasLeerPageModule)
-  },
+  }
+  
 ];
 
 @NgModule({
