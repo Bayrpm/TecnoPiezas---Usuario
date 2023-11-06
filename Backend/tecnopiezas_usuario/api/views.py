@@ -135,32 +135,3 @@ class DetalleBodega(APIView):
 ############################################# Fin Gerente compra #####################################################
 
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def registro(request):
-    serializer = PerfilSerializer(data=request.data)
-    if serializer.is_valid():
-        user = serializer.save()
-        user.set_password(request.data['password'])
-        user.save()
-        token, _ = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key}, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def inicio_sesion(request):
-    correo = request.data.get('correo')
-    password = request.data.get('password')
-    user = authenticate(request, correo=correo, password=password)
-    if user:
-        login(request, user)
-        token, _ = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key}, status=status.HTTP_200_OK)
-    return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def cerrar_sesion(request):
-    logout(request)
-    return Response({'message': 'Sesión cerrada'}, status=status.HTTP_200_OK)

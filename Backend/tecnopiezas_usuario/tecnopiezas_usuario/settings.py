@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
+    'accounts',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
@@ -69,10 +70,15 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_THROTTLE_RATES': {
         'login': '5/minute',  # Limitar los intentos de inicio de sesión
     }
 }
+
+AUTH_USER_MODEL = 'accounts.Perfil'
 
 
 MIDDLEWARE = [
@@ -124,6 +130,7 @@ DATABASES = {
         },
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
