@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="nombre" name="nombre" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Correo</ion-label>
+      <ion-input [(ngModel)]="correo" name="correo" type="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">password</ion-label>
+      <ion-input [(ngModel)]="password" name="password" type="password"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" (click)="registrar()">Registrarse</ion-button>
+  </ion-list>
+</ion-content>

@@ -25,6 +25,8 @@ export class ProductosService {
 
   private apiUrl = 'http://localhost:8000/api';
 
+  private accountsUrl = 'http://localhost:8000/accounts';
+
   // Con esto podremos conectar el filtro con el HTML de ver productos
   // debemos hacer esta conexion porque o si no, no funciona, porque?
   // no tengo ni idea, segun es porque estan en componetentes separados xd - Bayron A.
@@ -155,5 +157,16 @@ export class ProductosService {
     }
   }
 
+  // Para registrar usuarios y crear su perfil
+
+  registrarUsuario(userData: any) {
+    return this.http.post(`${this.accountsUrl}/registro/`, userData);
+  }
+
+  iniciarSesion(userData: any) {
+    return this.http.post(`${this.accountsUrl}/inicio-sesion/`, userData);
+  }
+
+  // final de crear perfil y login
 
 }

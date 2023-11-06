@@ -5,8 +5,11 @@ import { DescripcionComponent } from './descripcion/1/descripcion.component';
 
 
 const routes: Routes = [
-
-
+  {
+    path: '',
+    redirectTo: '/tabs/principal', // Redirige a la página "principal" en la pestaña "tabs"
+    pathMatch: 'full'
+  },
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
@@ -16,10 +19,6 @@ const routes: Routes = [
     loadChildren: () => import('./Productos/ver-productos/ver-productos.module').then( m => m.VerProductosPageModule)
   },
   {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
-  {
     path: '',
     component: PrincipalPage,
   },
@@ -27,6 +26,15 @@ const routes: Routes = [
     path: 'descripcion/1', // Nombre de la ruta para la lista de productos
     component: DescripcionComponent
   },
+  {
+    path: 'registro',
+    loadChildren: () => import('./accounts/registro/registro.module').then( m => m.RegistroPageModule)
+  },
+  {
+    path: 'inicio-sesion',
+    loadChildren: () => import('./accounts/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
+  },
+
  
 
 ];
