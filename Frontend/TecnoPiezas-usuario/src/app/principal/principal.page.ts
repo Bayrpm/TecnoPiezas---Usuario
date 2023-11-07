@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../productos.service';
 import { Producto } from '../model/ClProducto';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 
 
@@ -19,7 +20,7 @@ export class PrincipalPage implements OnInit {
   ];
   productos: Producto[] = [];
 
-  constructor(private productosService: ProductosService, private router: Router) {}
+  constructor(private productosService: ProductosService, private router: Router, private navCtrl: NavController) {}
   
   ngOnInit(): void {
     this.cargarProductos();
@@ -31,8 +32,8 @@ export class PrincipalPage implements OnInit {
     });
   }
 
-  navegarAOtraPagina() {
-    this.router.navigate(['/descripcion/1']);
+  navegarAOtraPagina(producto_id: number) {
+    this.navCtrl.navigateForward(`/descripcion/1/${producto_id}`);
   }
 
 agregarAlCarrito(producto: Producto) {

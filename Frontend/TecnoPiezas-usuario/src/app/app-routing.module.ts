@@ -23,8 +23,8 @@ const routes: Routes = [
     component: PrincipalPage,
   },
   {
-    path: 'descripcion/1', // Nombre de la ruta para la lista de productos
-    component: DescripcionComponent
+    path: 'descripcion/1/:id', // Nombre de la ruta para la lista de productos
+    loadChildren: () => import('./descripcion/1/descripcion.module').then( m => m.descripcionComponentModule)
   },
   {
     path: 'registro',

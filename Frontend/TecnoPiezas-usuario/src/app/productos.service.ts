@@ -6,6 +6,8 @@ import { catchError, map } from 'rxjs/operators';
 
 import { Subcategoria } from './model/ClSubcategorias';
 
+
+
 interface Producto {
   id: number;
   nombre: string;
@@ -45,6 +47,14 @@ export class ProductosService {
 
   obtenerTodosLosProductos(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/productos/`);
+  }
+
+  obtenerProductoPorId(productoId: number): Observable<Producto | null> {
+    return this.http.get<Producto>(`${this.apiUrl}/productos/${productoId}`);
+  }
+
+  getProducto(producto_id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/productos/${producto_id}/`);
   }
 
   obtenerCategorias(): Observable<any[]> {
