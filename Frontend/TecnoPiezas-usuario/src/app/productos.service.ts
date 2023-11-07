@@ -17,11 +17,10 @@ interface Producto {
 @Injectable({
   providedIn: 'root',
 })
+
 export class ProductosService {
 
-  private carrito: Producto[] = [];
-  private carritoSubject = new BehaviorSubject<Producto[]>(this.carrito);
-  carrito$ = this.carritoSubject.asObservable();
+
 
   private apiUrl = 'http://localhost:8000/api';
 
@@ -32,11 +31,16 @@ export class ProductosService {
 
   private productosFiltradosSubject = new BehaviorSubject<any[]>([]);
   productosFiltrados$ = this.productosFiltradosSubject.asObservable();
+  
+  private carrito: Producto[] = [];
+  private carritoSubject = new BehaviorSubject<Producto[]>([]);
+  carrito$: Observable<Producto[]> = this.carritoSubject.asObservable();
+
 
   constructor(private http: HttpClient) {
-   const carritoLocal = localStorage.getItem('carrito');
-    if (carritoLocal) {
-      this.carrito = JSON.parse(carritoLocal);
+    const carritoStorage = localStorage.getItem('carrito');
+    if (carritoStorage) {
+      this.carrito = JSON.parse(carritoStorage);
       this.carritoSubject.next([...this.carrito]);
     }
   }
@@ -108,52 +112,81 @@ export class ProductosService {
     this.productosFiltradosSubject.next(productos);
   }
 
-  //carrito
+  //carrito}
+  addToCarrito(producto: Producto) {
+    const productoEnCarrito = this.carrito.find((p) => p.id === producto.id);
 
-  agregarAlCarrito(producto: Producto) {
-    const productoExistente = this.carrito.find((p) => p.id === producto.id);
-    if (productoExistente) {
-      if (productoExistente.stock > 0) {
-        productoExistente.stock--;
-      }
+    if (productoEnCarrito) {
+      // Si el producto ya está en el carrito, simplemente incrementa la cantidad
+      productoEnCarrito.stock++;
     } else {
-      producto.stock = 1;
-      this.carrito.push(producto);
+      // Si el producto no está en el carrito, agrégalo al carrito como una nueva instancia
+      const nuevoProducto = { ...producto, stock: 1 };
+      this.carrito.push(nuevoProducto);
     }
+
+    // Emitir una nueva copia del carrito con los cambios
     this.carritoSubject.next([...this.carrito]);
-    localStorage.setItem('carrito', JSON.stringify(this.carrito));
+
+    // Guardar el carrito actualizado en localStorage
+    this.updateLocalStorage();
   }
 
-  obtenerCarrito(): Observable<Producto[]> {
-    return this.carrito$;
+  decreaseCartItem(producto: Producto) {
+    const existingProduct = this.carrito.find((p) => p.id === producto.id);
+
+    if (existingProduct) {
+      if (existingProduct.stock > 1) {
+        existingProduct.stock -= 1;
+      } else {
+        // Si la cantidad es 1, elimina el producto del carrito
+        this.removeCartItem(producto);
+      }
+
+      // Emitir una nueva copia del carrito con los cambios
+      this.carritoSubject.next([...this.carrito]);
+
+      // Guardar el carrito actualizado en localStorage
+      this.updateLocalStorage();
+    }
   }
 
-  vaciarCarrito() {
-    this.carrito.forEach((producto) => {
-      producto.stock += 1;
-    });
+  removeCartItem(producto: Producto) {
+    const index = this.carrito.findIndex((p) => p.id === producto.id);
+
+    if (index !== -1) {
+      this.carrito.splice(index, 1);
+
+      // Emitir una nueva copia del carrito con los cambios
+      this.carritoSubject.next([...this.carrito]);
+
+      // Actualizar el carrito en localStorage después de la eliminación
+      this.updateLocalStorage();
+    }
+  }
+
+  clearCart() {
     this.carrito = [];
+
+    // Emitir una nueva copia del carrito vacío
     this.carritoSubject.next([]);
+
+    // Limpiar el carrito en localStorage
     localStorage.removeItem('carrito');
   }
 
-  actualizarCarrito(carrito: Producto[]) {
-    this.carrito = carrito;
-    this.carritoSubject.next([...this.carrito]);
+  getCarrito() {
+    return this.carrito;
   }
-  eliminarDelCarrito(producto: Producto) {
-    const index = this.carrito.findIndex((p) => p.id === producto.id);
-    if (index !== -1) {
-      if (this.carrito[index].stock > 0) {
-        this.carrito[index].stock--;
-        if (this.carrito[index].stock === 0) {
-          this.carrito.splice(index, 1);
-        }
-        this.carritoSubject.next([...this.carrito]);
-        localStorage.setItem('carrito', JSON.stringify(this.carrito));
-      }
-    }
-}
 
+  getCarritoItemCount() {
+    return this.carrito.reduce((total, producto) => total + producto.stock, 0);
+  }
+
+  // Método para actualizar el carrito en localStorage
+   updateLocalStorage() {
+    localStorage.setItem('carrito', JSON.stringify(this.carrito));
+  }
+  
 
 }

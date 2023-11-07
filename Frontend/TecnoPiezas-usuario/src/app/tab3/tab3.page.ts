@@ -10,36 +10,33 @@ import { Producto } from '../model/ClProducto';
 export class Tab3Page {
   productosEnCarrito: Producto[] = [];
 
-  constructor(private productosService: ProductosService) {}
-
-  ngOnInit(): void {
-    this.productosService.obtenerCarrito().subscribe((carrito) => {
-      this.productosEnCarrito = carrito;
+  constructor(private productosService: ProductosService) {
+    this.productosService.carrito$.subscribe((productos) => {
+      this.productosEnCarrito = productos;
     });
   }
 
+  decreaseCartItem(producto: Producto) {
+    this.productosService.decreaseCartItem(producto);
+  }
+
+  increaseCartItem(producto: Producto) {
+    this.productosService.addToCarrito(producto);
+  }
+
+  removeCartItem(producto: Producto) {
+    this.productosService.removeCartItem(producto);
+  }
+
+  getTotal() {
+    return this.productosEnCarrito.reduce((total, producto) => total + producto.precio * producto.stock, 0);
+  }
+
+
   vaciarCarrito() {
-    this.productosService.vaciarCarrito();
+    this.productosService.clearCart();
   }
-
-  aumentarCantidad(producto: Producto) {
-    if (producto.stock > 0) {
-      producto.stock--; // Aumenta la cantidad en el carrito y disminuye el stock
-    }
+  actualizarLocalStorage() {
+    this.productosService.updateLocalStorage();
   }
-  
-
-eliminarProducto(producto: Producto) {
-  const index = this.productosEnCarrito.indexOf(producto);
-  if (index !== -1) {
-    // Aumenta el stock disponible al eliminar el producto
-    producto.stock += 1; // Puedes ajustar la cantidad que deseas devolver al stock
-    this.productosEnCarrito.splice(index, 1); // Elimina el producto del carrito
-    this.productosService.actualizarCarrito(this.productosEnCarrito);
-  }
-}
-
-
-
-
 }

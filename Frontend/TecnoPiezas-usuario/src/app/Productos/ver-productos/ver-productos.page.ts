@@ -8,10 +8,15 @@ import { Producto } from '../../model/ClProducto';
   styleUrls: ['./ver-productos.page.scss'],
 })
 export class VerProductosPage implements OnInit {
+  productosEnCarrito: Producto[] = [];
   productos: Producto[] = [];
   productosFiltrados: any[] = [];
 
-  constructor(private productosService: ProductosService) {}
+  constructor(private productosService: ProductosService) {
+    this.productosService.carrito$.subscribe((productos) => {
+      this.productosEnCarrito = productos;
+    });
+  }
 
   ngOnInit(): void {
     this.cargarProductos();
@@ -26,4 +31,11 @@ export class VerProductosPage implements OnInit {
   aplicarFiltros(productosFiltrados: any[]): void {
     this.productosFiltrados = productosFiltrados;
   }
+
+addToCarrito(producto: Producto) {
+  const nuevoProducto = { ...producto, stock: 1 }; // Clona el producto y establece la cantidad en 1
+  this.productosService.addToCarrito(nuevoProducto);
+}
+
+
 }
