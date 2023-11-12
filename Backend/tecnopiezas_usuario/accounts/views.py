@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login
 from django.http import Http404
 
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.hashers import check_password
 
 # Create your views here.
 
@@ -34,7 +35,7 @@ class InicioSesion(APIView):
         password = request.data.get('password')
         usuario = authenticate(request, correo=correo, password=password)
 
-        if usuario is not None:
+        if usuario is not None and check_password(password, usuario.password):
             login(request, usuario)
             token, created = Token.objects.get_or_create(user=usuario)
             serializer = PerfilSerializer(usuario)
