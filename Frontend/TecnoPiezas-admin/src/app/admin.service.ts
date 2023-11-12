@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AdminService {
   private apiUrl = 'http://localhost:8000/api';
+  private accountsUrl = 'http://localhost:8000/accounts';
   router: any;
 
   constructor(private http: HttpClient) {}
@@ -107,6 +108,10 @@ export class AdminService {
 
   onBodegaUpdated(): Observable<void> {
     return this.bodegaUpdatedSubject.asObservable();
+  }
+
+  iniciarSesionPrivado(userData: any) {
+    return this.http.post(`${this.accountsUrl}/inicio-sesion-privado/`, userData);
   }
 
 }
