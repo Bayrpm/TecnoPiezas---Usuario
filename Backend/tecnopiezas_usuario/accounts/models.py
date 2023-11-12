@@ -8,9 +8,23 @@ class PerfilManager(BaseUserManager):
     def create_user(self, correo, password=None, **extra_fields):
         if not correo:
             raise ValueError('El correo es obligatorio.')
+        
+        tipo_usuario = extra_fields.get('tipo_usuario', 'usuario')
+
         user = self.model(correo=self.normalize_email(correo), **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+
+        if tipo_usuario == 'gerente':
+            group_name = "Gerentes"
+        elif tipo_usuario == 'administrador':
+            group_name = "Administradores"
+        else:
+            group_name = "Usuarios"  # En caso de agregar un grupo para usuarios regulares
+
+        group, _ = Group.objects.get_or_create(name=group_name)
+        user.groups.add(group)
+
         return user
 
     def create_superuser(self, correo, password=None, **extra_fields):
@@ -54,3 +68,14 @@ class Perfil(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
       return self.nombre + self.correo
+
+class administradores(models.Model):
+
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=30)
+    apellido = models.CharField(max_length=30)
+    perfil = models.OneToOneField(Perfil, on_delete=models.CASCADE)
+    contraseña = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.nombre + self.apellido
