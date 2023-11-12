@@ -45,6 +45,8 @@ CORS_ALLOW_METHODS = [
     'PUT',
 ]
 
+AUTH_USER_MODEL = 'accounts.Perfil'
+
 MEDIA_URL = '/media/'
 
 # Configura la ruta de acceso al directorio donde se almacenan las imágenes.
@@ -77,8 +79,6 @@ REST_FRAMEWORK = {
         'login': '5/minute',  # Limitar los intentos de inicio de sesión
     }
 }
-
-AUTH_USER_MODEL = 'accounts.Perfil'
 
 
 MIDDLEWARE = [
