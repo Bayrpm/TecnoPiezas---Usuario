@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable,Subject, catchError, map, throwError  } from 'rxjs';
 
 import { Router } from '@angular/router';
@@ -13,8 +13,14 @@ export class AdminService {
   private apiUrl = 'http://localhost:8000/api';
   private accountsUrl = 'http://localhost:8000/accounts';
   router: any;
+  private headers: HttpHeaders;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+  }
 
   // Productos
 
@@ -112,6 +118,14 @@ export class AdminService {
 
   iniciarSesionPrivado(userData: any) {
     return this.http.post(`${this.accountsUrl}/inicio-sesion-privado/`, userData);
+  }
+
+  agregarAdmin(nombre: string, apellido: string): Observable<any> {
+    const data = { nombre, apellido };
+
+    return this.http.post(`${this.accountsUrl}/agregar-admin/`, data, {
+      headers: this.headers,
+    });
   }
 
 }
