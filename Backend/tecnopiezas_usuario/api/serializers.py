@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from .models import Producto, Categoria, Subcategoria, Locales
+
+from django.contrib.auth import authenticate
+
+from .models import *
 
 class ProductoSerializer(serializers.ModelSerializer):
     imagen = serializers.SerializerMethodField()
@@ -26,4 +29,16 @@ class SubcategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subcategoria
         fields = '__all__'
+
+class BodegasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bodegas
+        fields = '__all__'
+
+class DetalleBodegaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DetalleBodega
+        fields = '__all__'
+
+
 

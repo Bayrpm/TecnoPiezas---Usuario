@@ -7,6 +7,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { principalPageRoutingModule } from './principal-routing.module';
 import { register } from 'swiper/element/bundle';
+import { Router } from '@angular/router';
 // register Swiper custom elements
 register();
 

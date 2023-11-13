@@ -9,12 +9,8 @@ import { EditarProductoComponent } from './producto/editar-producto/editar-produ
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'inicio-sesion',
     pathMatch: 'full'
-  },
-  {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
   { path: 'productos', component: ListaProductosComponent },
   { path: 'productos/editar/:id', component: EditarProductoComponent },
@@ -40,6 +36,36 @@ const routes: Routes = [
     path: 'locales-actualizar/:id_locales',
     loadChildren: () => import('./Locales/locales-actualizar/locales-actualizar.module').then(m => m.LocalesActualizarPageModule)
   },
+  {
+    path: 'bodegas-home',
+    loadChildren: () => import('./Bodegas/bodegas-home/bodegas-home.module').then( m => m.BodegasHomePageModule)
+  },
+  {
+    path: 'bodegas-actualizar',
+    loadChildren: () => import('./Bodegas/bodegas-actualizar/bodegas-actualizar.module').then( m => m.BodegasActualizarPageModule)
+  },
+  {
+    path: 'bodegas-agregar',
+    loadChildren: () => import('./Bodegas/bodegas-agregar/bodegas-agregar.module').then( m => m.BodegasAgregarPageModule)
+  },
+  {
+    path: 'bodegas-home',
+    loadChildren: () => import('./Bodegas/bodegas-home/bodegas-home.module').then( m => m.BodegasHomePageModule)
+  },
+  {
+    path: 'bodegas-leer',
+    loadChildren: () => import('./Bodegas/bodegas-leer/bodegas-leer.module').then( m => m.BodegasLeerPageModule)
+  },
+  {
+    path: 'inicio-sesion',
+    loadChildren: () => import('./accounts/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
+  },  {
+    path: 'agregar-admin',
+    loadChildren: () => import('./accounts/administracion/agregar-admin/agregar-admin.module').then( m => m.AgregarAdminPageModule)
+  }
+
+
+  
 ];
 
 @NgModule({

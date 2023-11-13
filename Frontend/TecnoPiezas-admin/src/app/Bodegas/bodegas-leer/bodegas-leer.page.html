@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+          <ion-back-button text="Volver" defaultHref="/bodegas-home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Nuestras Bodegas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+      <ion-item *ngFor="let bodega of bodegas">
+          <ion-card>
+              <ion-card-header>
+                  <ion-card-title>{{bodega.direccion}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                  <ion-item>
+                      <p>Capacidad : </p>
+                      <p class="ion-padding-start">{{bodega.capacidad}}</p>
+                  </ion-item>
+
+                  <ion-button type="button" shape="round" color="primary" expand="block" routerLink="/bodegas-actualizar/{{ bodega.id_bodega }}">Editar</ion-button>
+                  <ion-button type="button" shape="round" color="danger" expand="block" (click)="deleteBodega(bodega.id_bodega)">
+                      Eliminar
+                  </ion-button>
+              </ion-card-content>
+          </ion-card>
+      </ion-item>
+  </ion-list>
+  <ng-template #noBodegas>
+      <div class="no-bodegas">
+          <p style="color: #f1f1ff; text-align: center; font-weight: 700;">No se han agregado bodegas. Por favor, agrega una.</p>
+          <ion-button routerLink="/bodegas-agregar" style="display: flex; justify-content: center;" shape="round" color="primary">Agregar Bodega</ion-button>
+      </div>
+  </ng-template>
+</ion-content>

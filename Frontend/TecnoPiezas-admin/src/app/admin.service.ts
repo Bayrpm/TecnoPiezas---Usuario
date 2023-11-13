@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable,Subject  } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable,Subject, catchError, map, throwError  } from 'rxjs';
+
+import { Router } from '@angular/router';
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
   private apiUrl = 'http://localhost:8000/api';
+  private accountsUrl = 'http://localhost:8000/accounts';
+  router: any;
+  private headers: HttpHeaders;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+  }
 
   // Productos
 
@@ -71,4 +83,51 @@ export class AdminService {
   getSubcategoriasPorCategoria(categoriaId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/subcategorias_por_categoria/${categoriaId}`);
   }
+
+  // Bodega ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  private bodegaUpdatedSubject: Subject<void> = new Subject<void>();
+
+  getBodegas(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/bodegas/`);
+  }
+
+  getBodega(id_bodega: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/bodegas/${id_bodega}/`);
+  }
+
+  addBodega(bodegaData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/bodegas/`, bodegaData);
+  }
+
+  updateBodega(id_bodega: number, bodegaData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/bodegas/${id_bodega}/`, bodegaData);
+  }
+
+  deleteBodega(id_bodega: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/bodegas/${id_bodega}/`);
+  }
+
+  notifyBodegaUpdated() {
+    this.bodegaUpdatedSubject.next();
+  }
+
+  onBodegaUpdated(): Observable<void> {
+    return this.bodegaUpdatedSubject.asObservable();
+  }
+
+  iniciarSesionPrivado(userData: any) {
+    return this.http.post(`${this.accountsUrl}/inicio-sesion-privado/`, userData);
+  }
+
+  agregarAdmin(nombre: string, apellido: string): Observable<any> {
+    const data = { nombre, apellido };
+
+    return this.http.post(`${this.accountsUrl}/agregar-admin/`, data, {
+      headers: this.headers,
+    });
+  }
+
 }
+
+

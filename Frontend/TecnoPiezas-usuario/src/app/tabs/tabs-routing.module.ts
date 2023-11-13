@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
-import { LoginPage } from '../login/login.page';
-import { AuthGuard } from '../auth.guard';
 const routes: Routes = [
   {
     path: 'tabs',
@@ -18,10 +16,8 @@ const routes: Routes = [
       },
       {
         path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule),
-   
+        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
-      { path: 'login', component: LoginPage },
       {
         path: '',
         redirectTo: '/tabs/principal',

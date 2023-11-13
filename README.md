@@ -1,4 +1,4 @@
-Guía para Configurar y Levantar el Backend
+<span style="color: red"> Guía para Configurar y Levantar el Backend </span>
 
 Esta guía te ayudará a configurar y levantar el backend de tu proyecto en ordenadores nuevos o ya configurados. Asegúrate de seguir estos pasos en orden para tener tu backend funcionando correctamente.
 
@@ -12,7 +12,21 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
    
    pip install virtualenv
 
-3. Librerías Python (Solo si no las tienes instaladas): Asegúrate de tener las siguientes librerías de Python instaladas:
+   Configuración del Entorno Virtual:
+
+1. Creación del Entorno Virtual: Si ya tienes un entorno virtual creado, puedes saltar este paso. Si no, crea un nuevo entorno virtual utilizando el siguiente comando (sustituye 'env' por el nombre que quieras para tu entorno virtual):
+
+   virtualenv -p python3 env
+
+2. Activación del Entorno Virtual: Activa el entorno virtual con el siguiente comando:
+
+   source env/bin/activate   # En sistemas Linux/Mac
+   
+   env\Scripts\activate      # En sistemas Windows
+
+   El entorno virtual debe estar activo cada vez que trabajes en tu proyecto.
+
+4. Librerías Python (Solo si no las tienes instaladas): Asegúrate de tener las siguientes librerías de Python instaladas:
 
    - mysqlclient y pymysql para la conexión con la base de datos MySQL:
      pip install mysqlclient pymysql
@@ -23,18 +37,8 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
    - djangorestframework para crear una API REST de manera sencilla:
      pip install djangorestframework
 
-Configuración del Entorno Virtual:
-
-1. Creación del Entorno Virtual: Si ya tienes un entorno virtual creado, puedes saltar este paso. Si no, crea un nuevo entorno virtual utilizando el siguiente comando (sustituye 'env' por el nombre que quieras para tu entorno virtual):
-
-   virtualenv -p python3 env
-
-2. Activación del Entorno Virtual: Activa el entorno virtual con el siguiente comando:
-
-   source env/bin/activate   # En sistemas Linux/Mac
-   env\Scripts\activate      # En sistemas Windows
-
-   El entorno virtual debe estar activo cada vez que trabajes en tu proyecto.
+   - Pillow para poder manejar las imagenes:
+     pip install pillow
 
 Iniciar el Backend:
 
