@@ -7,7 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Subcategoria } from './model/ClSubcategorias';
 
 interface Producto {
-  id: number;
+  producto_id: number;
   nombre: string;
   precio: number;
   descripcion: string;
@@ -19,11 +19,16 @@ interface Producto {
 })
 export class ProductosService {
 
+  private apiUrl = 'http://localhost:8000/api';
+  private apiUrlProductos = 'http://localhost:8000/api/productos';
+
+  private producto: Producto[] = []
+  private detalleSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public detalle$: Observable<any> = this.detalleSubject.asObservable();
+
   private carrito: Producto[] = [];
   private carritoSubject = new BehaviorSubject<Producto[]>(this.carrito);
   carrito$ = this.carritoSubject.asObservable();
-
-  private apiUrl = 'http://localhost:8000/api';
 
   private accountsUrl = 'http://localhost:8000/accounts';
 
@@ -41,6 +46,17 @@ export class ProductosService {
       this.carrito = JSON.parse(carritoLocal);
       this.carritoSubject.next([...this.carrito]);
     }
+  }
+
+  getDetallesProducto(id: number): void {
+    this.http.get(`${this.apiUrlProductos}/${id}`).subscribe(
+      (producto) => {
+        this.detalleSubject.next(producto);
+      },
+      (error) => {
+        console.error('Error al obtener detalles del producto', error);
+      }
+    );
   }
 
   obtenerTodosLosProductos(): Observable<any> {
@@ -113,7 +129,7 @@ export class ProductosService {
   //carrito
 
   agregarAlCarrito(producto: Producto) {
-    const productoExistente = this.carrito.find((p) => p.id === producto.id);
+    const productoExistente = this.carrito.find((p) => p.producto_id === producto.producto_id);
     if (productoExistente) {
       if (productoExistente.stock > 0) {
         productoExistente.stock--;
@@ -144,7 +160,7 @@ export class ProductosService {
     this.carritoSubject.next([...this.carrito]);
   }
   eliminarDelCarrito(producto: Producto) {
-    const index = this.carrito.findIndex((p) => p.id === producto.id);
+    const index = this.carrito.findIndex((p) => p.producto_id === producto.producto_id);
     if (index !== -1) {
       if (this.carrito[index].stock > 0) {
         this.carrito[index].stock--;
