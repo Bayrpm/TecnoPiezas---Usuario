@@ -31,9 +31,15 @@ const routes: Routes = [
     loadChildren: () => import('./accounts/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
   },
   {
+    path: 'principal',
+    loadChildren: () => import('./principal/principal.module').then( m => m.principalPageModule)
+  },
+  {
     path: 'detalle/:id',
     loadChildren: () => import('./detalle/detalle.module').then( m => m.DetallePageModule)
   }
+
+
 
 ];
 @NgModule({

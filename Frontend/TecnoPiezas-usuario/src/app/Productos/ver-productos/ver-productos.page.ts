@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../../productos.service';
+
 import { Producto } from '../../model/ClProducto';
 
 @Component({
@@ -8,10 +9,15 @@ import { Producto } from '../../model/ClProducto';
   styleUrls: ['./ver-productos.page.scss'],
 })
 export class VerProductosPage implements OnInit {
+
   productos: Producto[] = [];
   productosFiltrados: any[] = [];
 
-  constructor(private productosService: ProductosService) {}
+// Asegúrate de que esta línea esté presente
+
+  constructor(private productosService: ProductosService) {
+ 
+  }
 
   ngOnInit(): void {
     this.cargarProductos();
@@ -26,4 +32,9 @@ export class VerProductosPage implements OnInit {
   aplicarFiltros(productosFiltrados: any[]): void {
     this.productosFiltrados = productosFiltrados;
   }
+  agregarAlCarrito(producto: Producto): void {
+    this.productosService.agregarAlCarrito(producto);
+  }
+
+
 }
