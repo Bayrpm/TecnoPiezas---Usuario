@@ -36,5 +36,8 @@ export class VerProductosPage implements OnInit {
     this.productosService.agregarAlCarrito(producto);
   }
 
+  
+ 
+  
 
 }
