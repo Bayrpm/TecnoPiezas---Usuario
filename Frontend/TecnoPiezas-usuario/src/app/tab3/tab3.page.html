@@ -11,17 +11,18 @@
                 <ion-col *ngFor="let producto of productosEnCarrito" class="ion-no-padding">
                     <ion-row class="ion-no-padding">
                         <ion-col size="4" class="ion-no-padding">
-                            <img class="imagen centered-image" [src]="producto.imagen" alt="Descripción de la imagen" style="width: 100%; margin-left: 5px;">
+                            <img *ngIf="producto.imagen" class="imagen centered-image" [src]="producto.imagen" alt="Descripción de la imagen" style="width: 100%; margin-left: 5px;">
                         </ion-col>
+
                         <ion-col size="8">
                             <ion-item class="ion-no-padding">
                                 <h5 style="margin-left: 10px;">{{ producto.nombre }}</h5>
                                 <p class="ion-padding-start">Precio: {{ producto.precio | currency:'CLP' }}</p>
-                                <p class="ion-padding-start">Cantidad: {{ producto.stock }}</p>
+                                <p class="ion-padding-start">Cantidad: {{ producto.cantidad }}</p>
                             </ion-item>
                             <ion-grid>
-                                <ion-button>&plus;</ion-button>
-                                <ion-button>&minus;</ion-button>
+                                <ion-button (click)="aumentarCantidad(producto)">&plus;</ion-button>
+                                <ion-button (click)="disminuirCantidad( producto)">&minus;</ion-button>
                             </ion-grid>
                         </ion-col>
                     </ion-row>
@@ -41,8 +42,16 @@
         </ion-row>
         <ion-row>
             <ion-col size="12" class="buttons-container">
-                <ion-button class="custom-button">Vaciar carrito</ion-button>
-                <ion-button class="custom-button">Comprar</ion-button>
+                <ion-item class="total-container">
+                    <ion-label>Total:</ion-label>
+                    <ion-text>{{ total | currency:'CLP' }}</ion-text>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12" class="buttons-container">
+                <ion-button (click)="vaciarCarrito()" class="custom-button">Vaciar carrito</ion-button>
+                <ion-button (click)="finalizarCompra()" class="custom-button">Comprar</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>

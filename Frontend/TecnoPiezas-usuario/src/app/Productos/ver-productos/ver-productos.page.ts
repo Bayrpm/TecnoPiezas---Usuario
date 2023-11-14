@@ -32,7 +32,9 @@ export class VerProductosPage implements OnInit {
   aplicarFiltros(productosFiltrados: any[]): void {
     this.productosFiltrados = productosFiltrados;
   }
-
+  agregarAlCarrito(producto: Producto): void {
+    this.productosService.agregarAlCarrito(producto);
+  }
 
   
  

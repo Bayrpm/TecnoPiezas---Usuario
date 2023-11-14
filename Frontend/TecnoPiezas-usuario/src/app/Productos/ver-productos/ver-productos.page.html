@@ -14,7 +14,10 @@
                                 <p class="ion-padding-start">Precio: {{ producto.precio | currency:'CLP' }}</p>
                             </ion-item>
                         </ion-card-content>
-                        <ion-button expand="full">Añadir al carrito</ion-button>
+                        <ion-button expand="full" (click)="agregarAlCarrito(producto)">
+                            Añadir al carrito
+                        </ion-button>
+
 
                     </ion-card>
                 </ion-col>

@@ -35,6 +35,8 @@ export class PrincipalPage implements OnInit {
     this.router.navigate(['/descripcion/1']);
   }
 
-
+  agregarAlCarrito(producto: Producto): void {
+    this.productosService.agregarAlCarrito(producto);
+  }
 
 }
