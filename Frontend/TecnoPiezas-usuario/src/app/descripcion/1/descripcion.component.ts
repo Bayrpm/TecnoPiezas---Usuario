@@ -56,9 +56,6 @@ export class DescripcionComponent  implements OnInit {
     });
   }
 
-  agregarAlCarrito(producto: Producto) {
-    // Asegúrate de que 'producto' sea un objeto válido antes de llamar a esta función
-    this.productosService.agregarAlCarrito(producto);
-  }
+
 
 }

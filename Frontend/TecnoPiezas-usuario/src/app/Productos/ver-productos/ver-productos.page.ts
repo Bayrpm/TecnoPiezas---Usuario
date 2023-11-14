@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../../productos.service';
+
 import { Producto } from '../../model/ClProducto';
 
 @Component({
@@ -8,14 +9,14 @@ import { Producto } from '../../model/ClProducto';
   styleUrls: ['./ver-productos.page.scss'],
 })
 export class VerProductosPage implements OnInit {
-  productosEnCarrito: Producto[] = [];
+
   productos: Producto[] = [];
   productosFiltrados: any[] = [];
 
+// Asegúrate de que esta línea esté presente
+
   constructor(private productosService: ProductosService) {
-    this.productosService.carrito$.subscribe((productos) => {
-      this.productosEnCarrito = productos;
-    });
+ 
   }
 
   ngOnInit(): void {
@@ -32,10 +33,9 @@ export class VerProductosPage implements OnInit {
     this.productosFiltrados = productosFiltrados;
   }
 
-addToCarrito(producto: Producto) {
-  const nuevoProducto = { ...producto, stock: 1 }; // Clona el producto y establece la cantidad en 1
-  this.productosService.addToCarrito(nuevoProducto);
-}
 
+  
+ 
+  
 
 }

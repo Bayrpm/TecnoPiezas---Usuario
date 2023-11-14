@@ -19,6 +19,10 @@ const routes: Routes = [
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
       {
+        path: 'inicio-sesion',
+        loadChildren: () => import('../accounts/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/principal',
         pathMatch: 'full'

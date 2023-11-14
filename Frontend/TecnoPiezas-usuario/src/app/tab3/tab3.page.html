@@ -20,8 +20,8 @@
                                 <p class="ion-padding-start">Cantidad: {{ producto.stock }}</p>
                             </ion-item>
                             <ion-grid>
-                                <ion-button (click)="increaseCartItem(producto)">&plus;</ion-button>
-                                <ion-button (click)="decreaseCartItem(producto)">&minus;</ion-button>
+                                <ion-button>&plus;</ion-button>
+                                <ion-button>&minus;</ion-button>
                             </ion-grid>
                         </ion-col>
                     </ion-row>
@@ -41,7 +41,7 @@
         </ion-row>
         <ion-row>
             <ion-col size="12" class="buttons-container">
-                <ion-button (click)="vaciarCarrito()" class="custom-button">Vaciar carrito</ion-button>
+                <ion-button class="custom-button">Vaciar carrito</ion-button>
                 <ion-button class="custom-button">Comprar</ion-button>
             </ion-col>
         </ion-row>

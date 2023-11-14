@@ -16,27 +16,8 @@ export class Tab3Page {
     });
   }
 
-  decreaseCartItem(producto: Producto) {
-    this.productosService.decreaseCartItem(producto);
-  }
-
-  increaseCartItem(producto: Producto) {
-    this.productosService.addToCarrito(producto);
-  }
-
-  removeCartItem(producto: Producto) {
-    this.productosService.removeCartItem(producto);
-  }
-
-  getTotal() {
-    return this.productosEnCarrito.reduce((total, producto) => total + producto.precio * producto.stock, 0);
-  }
 
 
-  vaciarCarrito() {
-    this.productosService.clearCart();
-  }
-  actualizarLocalStorage() {
-    this.productosService.updateLocalStorage();
-  }
+
+
 }
