@@ -55,13 +55,9 @@ export class DescripcionComponent  implements OnInit {
       this.productos = data || [];
     });
   }
-
-<<<<<<< HEAD
-=======
-  agregarAlCarrito(producto: Producto) {
-    // Asegúrate de que 'producto' sea un objeto válido antes de llamar a esta función
+  agregarAlCarrito(producto: Producto): void {
     this.productosService.agregarAlCarrito(producto);
   }
->>>>>>> parent of db01b4d (Merge pull request #29 from Bayrpm/Cristóbal-Aravena)
+
 
 }

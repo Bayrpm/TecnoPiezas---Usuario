@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../productos.service';
 import { Producto } from '../model/ClProducto';
 
@@ -7,52 +7,45 @@ import { Producto } from '../model/ClProducto';
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page {
+export class Tab3Page implements OnInit {
   productosEnCarrito: Producto[] = [];
+  total: number = 0;
+  
 
-<<<<<<< HEAD
-  constructor(private productosService: ProductosService) {
-    this.productosService.carrito$.subscribe((productos) => {
-      this.productosEnCarrito = productos;
-    });
-  }
-
-
-
-
-
-=======
   constructor(private productosService: ProductosService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.productosService.obtenerCarrito().subscribe((carrito) => {
       this.productosEnCarrito = carrito;
+      this.calcularTotal();
     });
   }
 
-  vaciarCarrito() {
-    this.productosService.vaciarCarrito();
+  aumentarCantidad(producto: Producto): void {
+    this.productosService.agregarAlCarrito(producto);
   }
 
-  aumentarCantidad(producto: Producto) {
-    if (producto.stock > 0) {
-      producto.stock--; // Aumenta la cantidad en el carrito y disminuye el stock
-    }
+  disminuirCantidad(producto: Producto): void {
+    this.productosService.disminuirCantidad(producto);
   }
   
 
-eliminarProducto(producto: Producto) {
-  const index = this.productosEnCarrito.indexOf(producto);
-  if (index !== -1) {
-    // Aumenta el stock disponible al eliminar el producto
-    producto.stock += 1; // Puedes ajustar la cantidad que deseas devolver al stock
-    this.productosEnCarrito.splice(index, 1); // Elimina el producto del carrito
-    this.productosService.actualizarCarrito(this.productosEnCarrito);
+  eliminarDelCarrito(productoId: number): void {
+    this.productosService.eliminarDelCarrito(productoId);
   }
->>>>>>> parent of db01b4d (Merge pull request #29 from Bayrpm/Cristóbal-Aravena)
-}
 
+  vaciarCarrito(): void {
+    this.productosService.vaciarCarrito();
+  }
 
+  finalizarCompra(): void {
+    this.productosService.finalizarCompra();
+  }
 
-
+  private calcularTotal(): void {
+    this.total = this.productosEnCarrito.reduce(
+      (total, producto) => total + producto.precio * producto.stock,
+      0
+    );
+  }
 }
