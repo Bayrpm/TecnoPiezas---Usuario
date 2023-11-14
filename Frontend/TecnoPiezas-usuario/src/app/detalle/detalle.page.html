@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalles del Producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="container">
+    <ion-card *ngIf="productoDetalles" class="product">
+      <ion-card-header>
+        <ion-card-title>{{ productoDetalles.nombre }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="ion-no-padding">
+        <img class="imagen centered-image" [src]="productoDetalles.imagen" alt="Descripción de la imagen">
+        <ion-item class="ion-no-padding">
+          <div class="left-column">
+            <h1 class="ion-padding-start">{{ productoDetalles.precio | currency:'CLP' }}</h1>
+            <button ion-button class="descripcion-button" (click)="mostrarDescripcion = !mostrarDescripcion">Descripción</button>
+          </div>
+          <div class="right-column">
+            <p class="stock-text">Stock: {{ productoDetalles.stock }}</p>
+          </div>
+        </ion-item>
+        <div *ngIf="mostrarDescripcion" class="description">
+          
+          <p>{{ productoDetalles.descripcion }}</p>
+        </div>
+        <!-- Agrega más detalles según sea necesario -->
+      </ion-card-content>
+      <ion-button expand="full" (click)="agregarAlCarrito(productoDetalles)">Añadir al carrito</ion-button>
+    </ion-card>
+  </ion-grid>
+</ion-content>
+
+
+

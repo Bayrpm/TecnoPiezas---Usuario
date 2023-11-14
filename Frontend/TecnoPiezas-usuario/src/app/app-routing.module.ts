@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PrincipalPage } from './principal/principal.page';
-import { DescripcionComponent } from './descripcion/1/descripcion.component';
+import { DetallePage } from './detalle/detalle.page';
 
 
 const routes: Routes = [
@@ -23,10 +23,6 @@ const routes: Routes = [
     component: PrincipalPage,
   },
   {
-    path: 'descripcion/1', // Nombre de la ruta para la lista de productos
-    component: DescripcionComponent
-  },
-  {
     path: 'registro',
     loadChildren: () => import('./accounts/registro/registro.module').then( m => m.RegistroPageModule)
   },
@@ -38,8 +34,12 @@ const routes: Routes = [
     path: 'principal',
     loadChildren: () => import('./principal/principal.module').then( m => m.principalPageModule)
   },
+  {
+    path: 'detalle/:id',
+    loadChildren: () => import('./detalle/detalle.module').then( m => m.DetallePageModule)
+  }
 
- 
+
 
 ];
 @NgModule({
