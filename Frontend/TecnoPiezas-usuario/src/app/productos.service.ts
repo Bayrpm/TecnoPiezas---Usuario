@@ -112,7 +112,54 @@ export class ProductosService {
 
   //carrito
 
+<<<<<<< HEAD
 
+=======
+  agregarAlCarrito(producto: Producto) {
+    const productoExistente = this.carrito.find((p) => p.id === producto.id);
+    if (productoExistente) {
+      if (productoExistente.stock > 0) {
+        productoExistente.stock--;
+      }
+    } else {
+      producto.stock = 1;
+      this.carrito.push(producto);
+    }
+    this.carritoSubject.next([...this.carrito]);
+    localStorage.setItem('carrito', JSON.stringify(this.carrito));
+  }
+
+  obtenerCarrito(): Observable<Producto[]> {
+    return this.carrito$;
+  }
+
+  vaciarCarrito() {
+    this.carrito.forEach((producto) => {
+      producto.stock += 1;
+    });
+    this.carrito = [];
+    this.carritoSubject.next([]);
+    localStorage.removeItem('carrito');
+  }
+
+  actualizarCarrito(carrito: Producto[]) {
+    this.carrito = carrito;
+    this.carritoSubject.next([...this.carrito]);
+  }
+  eliminarDelCarrito(producto: Producto) {
+    const index = this.carrito.findIndex((p) => p.id === producto.id);
+    if (index !== -1) {
+      if (this.carrito[index].stock > 0) {
+        this.carrito[index].stock--;
+        if (this.carrito[index].stock === 0) {
+          this.carrito.splice(index, 1);
+        }
+        this.carritoSubject.next([...this.carrito]);
+        localStorage.setItem('carrito', JSON.stringify(this.carrito));
+      }
+    }
+  }
+>>>>>>> parent of db01b4d (Merge pull request #29 from Bayrpm/Cristóbal-Aravena)
 
   // Para registrar usuarios y crear su perfil
 
@@ -124,7 +171,11 @@ export class ProductosService {
     return this.http.post(`${this.accountsUrl}/inicio-sesion/`, userData);
   }
 
+<<<<<<< HEAD
  
   
+=======
+  // final de crear perfil y login
+>>>>>>> parent of db01b4d (Merge pull request #29 from Bayrpm/Cristóbal-Aravena)
 
 }

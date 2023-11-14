@@ -20,7 +20,11 @@
                                 <p class="ion-padding-start">Cantidad: {{ producto.stock }}</p>
                             </ion-item>
                             <ion-grid>
+<<<<<<< HEAD
                                 <ion-button>&plus;</ion-button>
+=======
+                                <ion-button (click)="aumentarCantidad(producto)">&plus;</ion-button>
+>>>>>>> parent of db01b4d (Merge pull request #29 from Bayrpm/Cristóbal-Aravena)
                                 <ion-button>&minus;</ion-button>
                             </ion-grid>
                         </ion-col>
@@ -29,6 +33,8 @@
             </ion-row>
         </ion-grid>
     </ion-list>
+
+
 
     <ion-grid class="custom-div">
         <ion-row>
@@ -41,7 +47,11 @@
         </ion-row>
         <ion-row>
             <ion-col size="12" class="buttons-container">
+<<<<<<< HEAD
                 <ion-button class="custom-button">Vaciar carrito</ion-button>
+=======
+                <ion-button (click)="vaciarCarrito()" class="custom-button">Vaciar carrito</ion-button>
+>>>>>>> parent of db01b4d (Merge pull request #29 from Bayrpm/Cristóbal-Aravena)
                 <ion-button class="custom-button">Comprar</ion-button>
             </ion-col>
         </ion-row>
