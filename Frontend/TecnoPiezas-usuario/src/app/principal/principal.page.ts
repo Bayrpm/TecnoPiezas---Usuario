@@ -35,9 +35,8 @@ export class PrincipalPage implements OnInit {
     this.router.navigate(['/descripcion/1']);
   }
 
-agregarAlCarrito(producto: Producto) {
-  // Asegúrate de que 'producto' sea un objeto válido antes de llamar a esta función
-  this.productosService.agregarAlCarrito(producto);
-}
+  agregarAlCarrito(producto: Producto): void {
+    this.productosService.agregarAlCarrito(producto);
+  }
 
 }

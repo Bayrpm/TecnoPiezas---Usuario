@@ -20,18 +20,24 @@ export class InicioSesionPage implements OnInit {
       correo: this.correo,
       password: this.password,
     };
-
+  
     this.productosService.iniciarSesion(userData).subscribe(
       (response: any) => {
         if (response && response.token) {
           localStorage.setItem('token', response.token);
+  
+          // Redirigir a la página principal y pasar el nombre del usuario como parámetro
+          this.router.navigate(['/tabs/principal']);
 
-          this.router.navigate(['/registro']);
         }
       },
       (error: any) => {
         console.error('Error en el inicio de sesión:', error);
       }
     );
+  }
+  
+  irARegistrarse() {
+    this.router.navigate(['/registro']);
   }
 }

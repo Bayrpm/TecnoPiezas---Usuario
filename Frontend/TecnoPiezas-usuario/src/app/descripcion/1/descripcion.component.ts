@@ -55,10 +55,9 @@ export class DescripcionComponent  implements OnInit {
       this.productos = data || [];
     });
   }
-
-  agregarAlCarrito(producto: Producto) {
-    // Asegúrate de que 'producto' sea un objeto válido antes de llamar a esta función
+  agregarAlCarrito(producto: Producto): void {
     this.productosService.agregarAlCarrito(producto);
   }
+
 
 }
