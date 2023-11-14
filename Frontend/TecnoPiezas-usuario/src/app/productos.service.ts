@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+
 import { catchError, map } from 'rxjs/operators';
-import { AuthService } from './auth.service';
-import { Router } from '@angular/router';
+
 import { Subcategoria } from './model/ClSubcategorias';
 
 interface Producto {
-  producto_id: number;
+  id: number;
   nombre: string;
   precio: number;
   descripcion: string;
   imagen: string;
   stock: number;
-  cantidad: number;
 }
-
 @Injectable({
   providedIn: 'root',
 })
@@ -24,16 +22,21 @@ export class ProductosService {
   private carrito: Producto[] = [];
   private carritoSubject = new BehaviorSubject<Producto[]>(this.carrito);
   carrito$ = this.carritoSubject.asObservable();
-  
+
   private apiUrl = 'http://localhost:8000/api';
 
   private accountsUrl = 'http://localhost:8000/accounts';
 
+  // Con esto podremos conectar el filtro con el HTML de ver productos
+  // debemos hacer esta conexion porque o si no, no funciona, porque?
+  // no tengo ni idea, segun es porque estan en componetentes separados xd - Bayron A.
+
+
   private productosFiltradosSubject = new BehaviorSubject<any[]>([]);
   productosFiltrados$ = this.productosFiltradosSubject.asObservable();
 
-  constructor(private http: HttpClient,private authService:AuthService, private router:Router) {
-    const carritoLocal = localStorage.getItem('carrito');
+  constructor(private http: HttpClient) {
+   const carritoLocal = localStorage.getItem('carrito');
     if (carritoLocal) {
       this.carrito = JSON.parse(carritoLocal);
       this.carritoSubject.next([...this.carrito]);
@@ -49,28 +52,37 @@ export class ProductosService {
   }
 
   obtenerSubcategorias(categoriaId: number): Observable<Subcategoria[]> {
-    const url = `${this.apiUrl}/subcategorias_por_categoria/${categoriaId}`;
+    const url = `http://localhost:8000/api/subcategorias_por_categoria/${categoriaId}`;
     return this.http.get(url).pipe(
       map((response: any) => {
+        // Realiza cualquier transformación necesaria en la respuesta
+        // y mapea los datos al tipo Subcategoria[]
         return response as Subcategoria[];
       }),
       catchError((error: any) => {
         console.error('Error en la solicitud HTTP:', error);
+        // Puedes manejar errores aquí según tus necesidades
         throw error;
       })
     );
   }
 
+
   obtenerSubcategoriasPorCategoria(categoriaId: number): Observable<Subcategoria[]> {
-    const url = `${this.apiUrl}/subcategorias_por_categoria/${categoriaId}`;
+    const url = `http://localhost:8000/api/subcategorias_por_categoria/${categoriaId}`;
+
     return this.http.get(url).pipe(
       map((response: any) => {
+        // Aquí puedes realizar cualquier transformación necesaria en la respuesta
+        // Por ejemplo, si la respuesta tiene un formato diferente al tipo Subcategoria[],
+        // puedes mapearla y transformarla en un array de subcategorías
         return response as Subcategoria[];
       })
     );
   }
 
   obtenerProductosFiltrados(busqueda: string, categoria: number | '', subcategoria: number | ''): Observable<any[]> {
+    // Construye la URL para la solicitud HTTP con los parámetros de búsqueda
     let url = `${this.apiUrl}/productos/filtro/?`;
 
     if (busqueda) {
@@ -85,10 +97,12 @@ export class ProductosService {
       url += `subcategoria=${subcategoria}&`;
     }
 
+    // Remueve el último "&" si está presente
     if (url.endsWith('&')) {
       url = url.slice(0, -1);
     }
 
+    // Realiza la solicitud HTTP para obtener productos filtrados
     return this.http.get<any[]>(url);
   }
 
@@ -96,84 +110,11 @@ export class ProductosService {
     this.productosFiltradosSubject.next(productos);
   }
 
-  // Métodos para el carrito
+  //carrito
 
-  agregarAlCarrito(producto: Producto): void {
-    // Verificar si el usuario ha iniciado sesión
-    if (this.authService.isLoggedIn()) {
-      let added = false;
-  
-      for (let p of this.carrito) {
-        if (p.producto_id === producto.producto_id) {
-          p.cantidad += 1;
-          added = true;
-          break;
-        }
-      }
-  
-      if (!added) {
-        this.carrito.push({ ...producto, stock: 1, cantidad: 1 });
-      }
-  
-      this.actualizarCarrito();
-    } else {
-      // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
-      this.router.navigate(['/inicio-sesion']);
-    }
-  }
-  
-  
-  
 
-  disminuirCantidad(producto: Producto): void {
-    for (const [index, item] of this.carrito.entries()) {
-      if (item.producto_id === producto.producto_id) {
-        item.cantidad -= 1;
-        
-        if (item.cantidad === 0) {
-          this.carrito.splice(index, 1);
-        }
-      }
-    }
-  
-    this.actualizarCarrito();
-  }
-  
 
-  eliminarDelCarrito(productoId: number): void {
-    this.carrito = this.carrito.filter((producto) => producto.producto_id == productoId);
-    this.actualizarCarrito();
-  }
-
-  vaciarCarrito(): void {
-    this.carrito = [];
-    this.actualizarCarrito();
-  }
-
-  obtenerCarrito(): Observable<Producto[]> {
-    return this.carritoSubject.asObservable();
-  }
-
-  obtenerTotal(): number {
-    return this.carrito.reduce((total, producto) => total + producto.precio * producto.stock, 0);
-  }
-  finalizarCompra(): void {
-    this.carrito.forEach((producto) => {
-      producto.stock -= producto.stock;
-      producto.cantidad = 0;
-    });
-  
-    this.vaciarCarrito();
-  }
-  
-  
-
-  private actualizarCarrito(): void {
-    this.carritoSubject.next([...this.carrito]);
-    localStorage.setItem('carrito', JSON.stringify(this.carrito));
-  }
-
-  // Métodos para registrar usuarios y crear perfiles
+  // Para registrar usuarios y crear su perfil
 
   registrarUsuario(userData: any) {
     return this.http.post(`${this.accountsUrl}/registro/`, userData);
@@ -182,4 +123,8 @@ export class ProductosService {
   iniciarSesion(userData: any) {
     return this.http.post(`${this.accountsUrl}/inicio-sesion/`, userData);
   }
+
+ 
+  
+
 }

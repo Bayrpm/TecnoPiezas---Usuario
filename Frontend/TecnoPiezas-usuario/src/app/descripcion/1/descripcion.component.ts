@@ -55,9 +55,7 @@ export class DescripcionComponent  implements OnInit {
       this.productos = data || [];
     });
   }
-  agregarAlCarrito(producto: Producto): void {
-    this.productosService.agregarAlCarrito(producto);
-  }
+
 
 
 }
