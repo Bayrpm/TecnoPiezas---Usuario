@@ -74,6 +74,17 @@ class InicioSesionPrivado(APIView):
                 return Response({'error': 'Acceso denegado: No eres un gerente o administrador'}, status=status.HTTP_403_FORBIDDEN)
         else:
             return Response({'error': 'Credenciales incorrectas'}, status=status.HTTP_400_BAD_REQUEST)
+    
+class CerrarSesion(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+        try:
+            # Aqui eliminamos el token que tiene el ususario
+            Token.objects.filter(user=request.user).delete()
+            return Response({"detail": "Logged out successfully."}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"detail": "Error loggin out."}, status=status.HTTP_400_BAD_REQUEST)
 
 class AgregarAdministrador(APIView):
     permission_classes = [IsAuthenticated]
