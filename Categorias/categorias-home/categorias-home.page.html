@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Categoria</ion-title>
+      <ion-buttons slot="end">
+          <ion-back-button text="Volver" defaultHref="/"></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+      <ion-row>
+          <ion-col>
+              <ion-button routerLink="/categorias-agregar" class="custom-button">
+                  <ion-label>Agregar Categorias</ion-label>
+                  <svg xmlns="" class="ionicon" viewBox="0 0 512 512">
+                      <!-- Reemplaza con el icono adecuado para agregar bodega -->
+                      <!-- ... -->
+                  </svg>
+              </ion-button>
+          </ion-col>
+          <ion-col>
+              <ion-button routerLink="/categorias-leer" class="custom-button">
+                  <ion-label>Listar Categorias</ion-label>
+                  <svg xmlns="" class="ionicon" viewBox="0 0 512 512">
+                      <!-- Reemplaza con el icono adecuado para listar bodega -->
+                      <!-- ... -->
+                  </svg>
+              </ion-button>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>
