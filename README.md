@@ -26,19 +26,9 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
 
    El entorno virtual debe estar activo cada vez que trabajes en tu proyecto.
 
-4. Librerías Python (Solo si no las tienes instaladas): Asegúrate de tener las siguientes librerías de Python instaladas:
+4. Librerías Python (Solo si no las tienes instaladas): Ejecuta este codigo para instalar todo lo que necesitas.
 
-   - mysqlclient y pymysql para la conexión con la base de datos MySQL:
-     pip install mysqlclient pymysql
-
-   - django-cors-headers para gestionar las cabeceras CORS en tu proyecto:
-     pip install django-cors-headers
-
-   - djangorestframework para crear una API REST de manera sencilla:
-     pip install djangorestframework
-
-   - Pillow para poder manejar las imagenes:
-     pip install pillow
+   pip install -r requirements.txt
 
 Iniciar el Backend:
 
