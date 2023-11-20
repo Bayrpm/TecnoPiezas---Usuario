@@ -27,7 +27,7 @@ export class InicioSesionPage implements OnInit {
           localStorage.setItem('token', response.token);
   
           // Redirigir a la página principal y pasar el nombre del usuario como parámetro
-          this.router.navigate(['/tabs/principal']);
+          this.router.navigate(['/tabs/principal'], { state: { nombreUsuario: response.nombreUsuario } });
 
         }
       },

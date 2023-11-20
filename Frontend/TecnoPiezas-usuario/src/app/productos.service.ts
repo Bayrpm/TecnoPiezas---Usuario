@@ -21,16 +21,12 @@ interface Producto {
 })
 export class ProductosService {
 
-  private producto: Producto[] = []
-  private detalleSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public detalle$: Observable<any> = this.detalleSubject.asObservable();
-
   private carrito: Producto[] = [];
   private carritoSubject = new BehaviorSubject<Producto[]>(this.carrito);
   carrito$ = this.carritoSubject.asObservable();
-
+  
   private apiUrl = 'http://localhost:8000/api';
-  private apiUrlProductos = 'http://localhost:8000/api/productos';
+
   private accountsUrl = 'http://localhost:8000/accounts';
 
   private productosFiltradosSubject = new BehaviorSubject<any[]>([]);
@@ -42,17 +38,6 @@ export class ProductosService {
       this.carrito = JSON.parse(carritoLocal);
       this.carritoSubject.next([...this.carrito]);
     }
-  }
-
-  getDetallesProducto(id: number): void {
-    this.http.get(`${this.apiUrlProductos}/${id}`).subscribe(
-      (producto) => {
-        this.detalleSubject.next(producto);
-      },
-      (error) => {
-        console.error('Error al obtener detalles del producto', error);
-      }
-    );
   }
 
   obtenerTodosLosProductos(): Observable<any> {
@@ -117,7 +102,7 @@ export class ProductosService {
     // Verificar si el usuario ha iniciado sesión
     if (this.authService.isLoggedIn()) {
       let added = false;
-
+  
       for (let p of this.carrito) {
         if (p.producto_id === producto.producto_id) {
           p.cantidad += 1;
@@ -125,35 +110,35 @@ export class ProductosService {
           break;
         }
       }
-
+  
       if (!added) {
         this.carrito.push({ ...producto, stock: 1, cantidad: 1 });
       }
-
+  
       this.actualizarCarrito();
     } else {
       // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
       this.router.navigate(['/inicio-sesion']);
     }
   }
-
-
-
+  
+  
+  
 
   disminuirCantidad(producto: Producto): void {
     for (const [index, item] of this.carrito.entries()) {
       if (item.producto_id === producto.producto_id) {
         item.cantidad -= 1;
-
+        
         if (item.cantidad === 0) {
           this.carrito.splice(index, 1);
         }
       }
     }
-
+  
     this.actualizarCarrito();
   }
-
+  
 
   eliminarDelCarrito(productoId: number): void {
     this.carrito = this.carrito.filter((producto) => producto.producto_id == productoId);
@@ -177,11 +162,11 @@ export class ProductosService {
       producto.stock -= producto.stock;
       producto.cantidad = 0;
     });
-
+  
     this.vaciarCarrito();
   }
-
-
+  
+  
 
   private actualizarCarrito(): void {
     this.carritoSubject.next([...this.carrito]);
