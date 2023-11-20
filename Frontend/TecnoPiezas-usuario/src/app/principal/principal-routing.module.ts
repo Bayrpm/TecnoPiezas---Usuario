@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PrincipalPage } from './principal.page';
-import { DescripcionComponent } from '../descripcion/1/descripcion.component';
+import { DetallePage } from '../detalle/detalle.page';
 
 
 const routes: Routes = [
@@ -10,8 +10,8 @@ const routes: Routes = [
     component: PrincipalPage,
   },
   {
-    path: 'descripcion/1', // Nombre de la ruta para la lista de productos
-    component: DescripcionComponent
+    path: 'detalle', // Nombre de la ruta para la lista de productos
+    component: DetallePage
   },
 
 

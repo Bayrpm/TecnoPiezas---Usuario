@@ -1,0 +1,30 @@
+ion-content {
+    --ion-background-color: #333;
+  
+    ion-grid {
+      margin-top: 20px;
+  
+      ion-card.product {
+        // ... (resto de los estilos)
+  
+        ion-item {
+          display: flex;
+          justify-content: space-between;
+  
+          .left-column,
+          .right-column {
+            flex: 1;
+          }
+  
+          .descripcion-button,
+          .stock-text {
+            margin-left: 0;
+          }
+  
+          .right-column {
+            text-align: right; // Alinea el contenido a la derecha
+          }
+        }
+      }
+    }
+  }
