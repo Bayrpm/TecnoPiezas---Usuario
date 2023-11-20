@@ -34,7 +34,4 @@ export class RegistroPage implements OnInit {
       }
     );
   }
-  irAInicioSesion() {
-    this.router.navigate(['/inicio-sesion']);
-  }
 }

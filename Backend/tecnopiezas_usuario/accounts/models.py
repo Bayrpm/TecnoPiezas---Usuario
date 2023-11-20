@@ -54,7 +54,7 @@ class Perfil(AbstractBaseUser, PermissionsMixin):
     tipo_usuario = models.CharField(
         max_length=15,
         choices=TIPO_USUARIO_CHOICES,
-        default='usuario',  # Puedes cambiar el valor predeterminado
+        default='usuario', 
     )
 
     is_active = models.BooleanField(default=True)
@@ -67,7 +67,7 @@ class Perfil(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['nombre']
 
     def __str__(self):
-      return self.nombre + self.correo
+      return self.nombre + " " + self.correo
 
 class administradores(models.Model):
 
