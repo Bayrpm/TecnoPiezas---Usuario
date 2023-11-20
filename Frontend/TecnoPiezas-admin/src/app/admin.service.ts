@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable,Subject, catchError, map, throwError  } from 'rxjs';
+import { BehaviorSubject, Observable,Subject, catchError, map, tap, throwError  } from 'rxjs';
 
 import { Router } from '@angular/router';
 
@@ -14,6 +14,16 @@ export class AdminService {
   private accountsUrl = 'http://localhost:8000/accounts';
   router: any;
   private headers: HttpHeaders;
+  private estaLogeadoSubject = new BehaviorSubject<boolean>(false);
+  estaLogeado$ = this.estaLogeadoSubject.asObservable();
+
+  get estaLogeado(): boolean {
+    return this.estaLogeadoSubject.value;
+  }
+
+  setLogeado(estado: boolean): void {
+    this.estaLogeadoSubject.next(estado);
+  }
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({
@@ -117,7 +127,22 @@ export class AdminService {
   }
 
   iniciarSesionPrivado(userData: any) {
-    return this.http.post(`${this.accountsUrl}/inicio-sesion-privado/`, userData);
+    return this.http.post(`${this.accountsUrl}/inicio-sesion-privado/`, userData)
+      .pipe(
+        tap(() => {
+          this.setLogeado(true);
+        })
+      );
+  }
+  
+  CerrarSesion(): Observable<any> {
+    const url = `${this.accountsUrl}/cerrar-sesion/`;
+    return this.http.post<any>(url, {}, { headers: this.headers })
+      .pipe(
+        tap(() => {
+          this.setLogeado(false);
+        })
+      );
   }
 
   agregarAdmin(nombre: string, apellido: string): Observable<any> {
