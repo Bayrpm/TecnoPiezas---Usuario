@@ -62,6 +62,10 @@ const routes: Routes = [
   },  {
     path: 'agregar-admin',
     loadChildren: () => import('./accounts/administracion/agregar-admin/agregar-admin.module').then( m => m.AgregarAdminPageModule)
+  },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
   }
 
 

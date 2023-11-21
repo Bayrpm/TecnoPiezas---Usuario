@@ -1,0 +1,33 @@
+.title-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.title {
+  font-size: 3em;
+  color: #7d9ed8; /* Color principal del título */
+}
+
+.rectangle {
+  background-color: #7d9ed8; /* Color del rectángulo */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  text-align: center;
+  margin: 5px; /* Espacio entre los rectángulos */
+}
+
+.rectangle-text {
+  font-weight: bold;
+  color: white; /* Color del texto */
+  margin-bottom: 10px; /* Espacio entre el texto y el ícono */
+}
+
+.rectangle-image {
+  display: flex;
+  justify-content: center;
+}
+
+.rectangle-image img {
+  width: 40px; /* Tamaño del ícono */
+  height: 40px;
+}
