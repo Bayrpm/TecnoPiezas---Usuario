@@ -1,25 +1,21 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button defaultHref="/"></ion-back-button>
-      </ion-buttons>
-      <ion-title>Iniciar Sesión</ion-title>
+    <ion-title>Iniciar Sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-      <ion-item>
-          <ion-label position="stacked">Correo</ion-label>
-          <ion-input [(ngModel)]="correo" name="correo" type="email"></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Correo</ion-label>
+      <ion-input [(ngModel)]="correo" name="correo" type="email"></ion-input>
+    </ion-item>
 
-      <ion-item>
-          <ion-label position="stacked">Contraseña</ion-label>
-          <ion-input [(ngModel)]="password" name="password" type="password"></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Contraseña</ion-label>
+      <ion-input [(ngModel)]="password" name="password" type="password"></ion-input>
+    </ion-item>
 
-      <ion-button expand="full" (click)="iniciarSesion()">Iniciar Sesión</ion-button>
-      <ion-button color="danger" expand="full" (click)="irARegistrarse()">Registrarse</ion-button>
+    <ion-button expand="full" (click)="iniciarSesion()">Iniciar Sesión</ion-button>
   </ion-list>
 </ion-content>

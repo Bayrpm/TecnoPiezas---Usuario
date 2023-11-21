@@ -18,7 +18,9 @@
         <ion-item class="ion-no-padding">
           <div class="left-column">
             <h1 class="ion-padding-start">{{ productoDetalles.precio | currency:'CLP' }}</h1>
-            <button ion-button class="descripcion-button" (click)="mostrarDescripcion = !mostrarDescripcion">Descripción</button>
+            <ion-button style="background-color: #6bc1fa; color: #ffffff; margin-left: 0; margin-top: 10px; " class="descripcion-button" (click)="mostrarDescripcion = !mostrarDescripcion">Descripción</ion-button>
+            <ion-button style="background-color: #6bc1fa; color: #ffffff; margin-left: 0; margin-top: 10px;" class="descripcion-button" (click)="mostrarGarantia = !mostrarGarantia">Garantía</ion-button>
+            <ion-button style="background-color: #6bc1fa; color: #ffffff; margin-left: 0; margin-top: 10px; margin-bottom:  25px;" class="descripcion-button" (click)="mostrarContacto = !mostrarContacto">Contacto</ion-button>
           </div>
           <div class="right-column">
             <p class="stock-text">Stock: {{ productoDetalles.stock }}</p>
@@ -26,7 +28,15 @@
         </ion-item>
         <div *ngIf="mostrarDescripcion" class="description">
           
-          <p>{{ productoDetalles.descripcion }}</p>
+          <p style="margin-left: 25px; margin-right: 25px; margin-bottom: 25px; margin-top: 10px; color: #ffffff;" >{{ productoDetalles.descripcion }}</p>
+        </div>
+        <div *ngIf="mostrarGarantia" class="description">
+          
+          <p style="margin-left: 25px; margin-right: 25px; margin-bottom: 25px; margin-top: 10px; color: #ffffff;">Garantía del fabricante de 12 meses. Todo producto nuevo cuenta con una garantía legal de seis meses contados desde la fecha de compra en caso de falla de fábrica (Ley del consumidor 19.496). Si pasados los primeros 6 meses y hasta el término del mes 12, tu producto presenta una falla de fábrica, puedes solicitar reparación del producto acercándote nuestras tienda o directamente al servicio técnico autorizado del fabricante. Pasados los primeros 6 meses, si TecnoPlaza determina que el producto es irreparable podría realizar cambios de productos o devolución de dinero en vez de la reparación. </p>
+        </div>
+        <div *ngIf="mostrarContacto" class="description">
+          
+          <p style="margin-left: 25px; margin-right: 25px; margin-bottom: 25px; margin-top: 10px; color: #ffffff;">Llamando a nuestro Call Center - Fono +56987654321</p>
         </div>
         <!-- Agrega más detalles según sea necesario -->
       </ion-card-content>
