@@ -18,7 +18,7 @@ export class TabsPage implements OnInit {
     });
   }
 
-  irAInicioSesion() {
-    this.router.navigate(['/inicio-sesion']);
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 }

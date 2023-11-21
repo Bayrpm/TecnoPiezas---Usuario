@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@types/google.maps": "^3.54.9",
     "swiper": "^11.0.3"
   }
 }

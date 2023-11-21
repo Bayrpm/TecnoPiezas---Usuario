@@ -48,7 +48,7 @@
                         <ion-fab-button class="centered-fab-button">
                             <ion-icon name="ribbon" style="display: flex; "></ion-icon>
                         </ion-fab-button>
-                        <p style="margin-top: 4px; margin-left: -8px; text-align: center;">Mejor <br> Valorados</p>
+                        <p style="margin-top: 4px; text-align: center;">Mas <br> Ofertas</p>
                     </ion-fab>
                 </ion-col>
                 <ion-col>
@@ -76,26 +76,25 @@
         <ion-grid [fixed]="true">
             <ion-row class="ion-no-padding">
                 <ion-col size="6" *ngFor="let producto of productos" class="ion-no-padding">
-                    <ion-card class="custom-card">
+                    <ion-card class="custom-card" >
                         <ion-card-header>
                             <ion-card-title>{{ producto.nombre }}</ion-card-title>
                         </ion-card-header>
-                        <ion-card-content class="ion-no-padding" style="display: flex; flex-direction: column; align-items: center; " (click)="navegarAProductosDetalles(producto.producto_id)">
+                        <ion-card-content class="6bc1fa" style="display: flex; flex-direction: column; align-items: center; " (click)="navegarAProductosDetalles(producto.producto_id)">
                             <img class="imagen centered-image" [src]="producto.imagen" alt="Descripción de la imagen">
                             <ion-item class="ion-no-padding">
                                 <p class="ion-padding-start">Precio: {{ producto.precio | currency:'CLP' }}</p>
                             </ion-item>
                         </ion-card-content>
-
-                        <!-- Botón "Añadir al carrito" en el footer de la tarjeta -->
-                        <ion-card-subtitle>
-                            <ion-button expand="full" (click)="agregarAlCarrito(producto)">
-                                Añadir al carrito
-                            </ion-button>
-                        </ion-card-subtitle>
+                        <ion-button expand="full" (click)="agregarAlCarrito(producto)">Añadir al carrito</ion-button>
+                    
                     </ion-card>
                 </ion-col>
             </ion-row>
         </ion-grid>
     </ion-grid>
+    <h4 style="margin-left: 25px;">Nuestra Tienda</h4>
+        <div #map style="height: 50%; margin-left: 25px; margin-right: 25px; margin-bottom: 25px;" async defer></div>
 </ion-content>
+
+

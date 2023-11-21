@@ -5,5 +5,11 @@ export interface Producto {
   descripcion: string;
   imagen: string;
   stock: number;
-  cantidad: number;
+  valoraciones: number;
+}
+
+export interface Comentario {
+  usuario: string;
+  texto: string;
+  fecha: Date;
 }

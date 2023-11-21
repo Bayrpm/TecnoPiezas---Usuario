@@ -1,4 +1,4 @@
-@set "VIRTUAL_ENV=C:\Users\crist\OneDrive\Escritorio\AppMoviles\TecnoPiezas---Usuario\Backend\env"
+@set "VIRTUAL_ENV=C:\Users\crist\Documents\GitHub\TecnoPiezas---Usuario\Backend\env"
 
 @set "VIRTUAL_ENV_PROMPT="
 @if NOT DEFINED VIRTUAL_ENV_PROMPT (
