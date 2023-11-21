@@ -10,8 +10,8 @@ export class TabsPage  {
 
   constructor(private router: Router) {}
 
-  goToLogin() {
-    this.router.navigate(['/login']);
+  irAInicioSesion() {
+    this.router.navigate(['/inicio-sesion']);
   }
  
 }
