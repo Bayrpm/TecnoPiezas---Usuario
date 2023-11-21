@@ -11,8 +11,6 @@ import { Router } from '@angular/router';
 })
 export class DetallePage implements OnInit {
   mostrarDescripcion = false; 
-  mostrarGarantia = false;
-  mostrarContacto = false;
   productoDetalles: any;
   productos: Producto[] = [];
 

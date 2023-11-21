@@ -9,7 +9,7 @@ ion-content {
   
         ion-item {
           display: flex;
-          flex-direction: column;
+          justify-content: space-between;
   
           .left-column,
           .right-column {
