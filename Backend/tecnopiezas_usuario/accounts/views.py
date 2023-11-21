@@ -7,16 +7,23 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.http import Http404
 
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import check_password
+from rest_framework.authentication import TokenAuthentication
 
 from rest_framework.permissions import IsAuthenticated
 from django.db import IntegrityError, transaction
 import string
 import random
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -76,15 +83,49 @@ class InicioSesionPrivado(APIView):
             return Response({'error': 'Credenciales incorrectas'}, status=status.HTTP_400_BAD_REQUEST)
     
 class CerrarSesion(APIView):
+    authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def post(self, request, format=None):
         try:
-            # Aqui eliminamos el token que tiene el ususario
-            Token.objects.filter(user=request.user).delete()
+            # Eliminar el token del usuario actual
+            request.user.auth_token.delete()
             return Response({"detail": "Logged out successfully."}, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({"detail": "Error loggin out."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": "Error logging out."}, status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+@login_required
+@require_POST
+def verificar_contrasena_actual(request):
+    contrasena_actual = request.POST.get('current_password')
+
+    if request.user.check_password(contrasena_actual):
+        return JsonResponse({'message': 'Contraseña actual correcta'})
+    else:
+        return JsonResponse({'error': 'Contraseña actual incorrecta'}, status=400)
+
+@csrf_exempt
+@login_required
+@require_POST
+def cambiar_contrasena(request):
+    correo = request.POST.get('correo')
+    contrasena_nueva = request.POST.get('new_password')
+    confirmar_contrasena = request.POST.get('confirm_password')
+
+    if contrasena_nueva != confirmar_contrasena:
+        return JsonResponse({'error': 'Las contraseñas no coinciden'}, status=400)
+
+    user = User.objects.get(correo=correo)
+
+    # Actualizar la contraseña
+    user.set_password(contrasena_nueva)
+    user.save()
+
+    # Actualizar la sesión del usuario con la nueva contraseña
+    update_session_auth_hash(request, user)
+
+    return JsonResponse({'message': 'Contraseña cambiada exitosamente'})
 
 class AgregarAdministrador(APIView):
     permission_classes = [IsAuthenticated]

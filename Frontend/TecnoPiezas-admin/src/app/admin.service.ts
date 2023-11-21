@@ -137,7 +137,14 @@ export class AdminService {
   
   CerrarSesion(): Observable<any> {
     const url = `${this.accountsUrl}/cerrar-sesion/`;
-    return this.http.post<any>(url, {}, { headers: this.headers })
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      }
+    };
+  
+    return this.http.post<any>(url, {}, headers)
       .pipe(
         tap(() => {
           this.setLogeado(false);
@@ -151,6 +158,14 @@ export class AdminService {
     return this.http.post(`${this.accountsUrl}/agregar-admin/`, data, {
       headers: this.headers,
     });
+  }
+
+  verificarContrasena(correo: string, currentPassword: string) {
+    return this.http.post(`${this.accountsUrl}/verificar-contrasena/`, { correo, current_password: currentPassword }, { headers: this.headers });
+  }
+
+  cambiarContrasena(newPassword: string) {
+    return this.http.post(`${this.accountsUrl}/cambiar-contrasena/`, { new_password: newPassword }, { headers: this.headers });
   }
 
 }

@@ -13,9 +13,9 @@ export class AppComponent {
   ];
 
   usuarioLogeado = false;
-  router: any;
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.adminService.estaLogeado$.subscribe((logeado) => {
@@ -27,7 +27,7 @@ export class AppComponent {
     this.adminService.CerrarSesion().subscribe(
       () => {
         
-        this.router.navigate(['/inicio-sesion-privado/']);
+        this.router.navigate(['/inicio-sesion/']);
 
         console.log('Logout exitoso');
       },
