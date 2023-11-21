@@ -4,12 +4,16 @@
             <ion-menu-button class="menu"></ion-menu-button>
         </ion-buttons>
         <ion-buttons slot="secondary">
-            <ion-button (click)="goToLogin()">
+            <ion-button (click)="irAInicioSesion()">
                 <ion-icon name="person-circle" style="font-size: 45px;"></ion-icon>
             </ion-button>
         </ion-buttons>
+
+
+
     </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
     <ion-tabs>
@@ -25,11 +29,14 @@
                 <ion-icon aria-hidden="true" name="pricetags"></ion-icon>
                 <ion-label>Productos</ion-label>
             </ion-tab-button>
-
             <ion-tab-button tab="tab3" routerLink="/tabs/tab3">
                 <ion-icon aria-hidden="true" name="cart"></ion-icon>
                 <ion-label>Carrito</ion-label>
+                <!-- Muestra el contador si la cantidad es mayor que cero -->
+                <ion-badge class="ion-text ion-text-sm ion-color-light" *ngIf="cantidadEnCarrito > 0">{{ cantidadEnCarrito }}</ion-badge>
             </ion-tab-button>
+
+
         </ion-tab-bar>
     </ion-tabs>
 
