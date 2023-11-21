@@ -10,7 +10,7 @@ import { EditarProductoComponent } from './producto/editar-producto/editar-produ
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inicio-sesion-privado',
+    redirectTo: 'inicio-sesion',
     pathMatch: 'full'
   },
   { path: 'productos', component: ListaProductosComponent },
