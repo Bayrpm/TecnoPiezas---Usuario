@@ -6,6 +6,7 @@ import { CrearProductoComponent } from './producto/crear-producto/crear-producto
 import { DetallesProductoComponent } from './producto/detalles-producto/detalles-producto.component';
 import { EditarProductoComponent } from './producto/editar-producto/editar-producto.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -57,16 +58,23 @@ const routes: Routes = [
     loadChildren: () => import('./Bodegas/bodegas-leer/bodegas-leer.module').then( m => m.BodegasLeerPageModule)
   },
   {
-    path: 'inicio-sesion',
+    path: 'inicio-sesion-privado',
     loadChildren: () => import('./accounts/inicio-sesion/inicio-sesion.module').then( m => m.InicioSesionPageModule)
-  },  {
+  },
+  {
     path: 'agregar-admin',
     loadChildren: () => import('./accounts/administracion/agregar-admin/agregar-admin.module').then( m => m.AgregarAdminPageModule)
   },
   {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
-  }
+  },
+  {
+    path: 'cambiar-contrasena',
+    loadChildren: () => import('./accounts/cambiar-contrasena/cambiar-contrasena.module').then( m => m.CambiarContrasenaPageModule)
+  },
+
+
 
 
   

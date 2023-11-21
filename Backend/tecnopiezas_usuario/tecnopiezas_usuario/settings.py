@@ -36,13 +36,33 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000", # Nuestro dominio de angular
 ]
 
-CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8100']
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://\w+\.ngrok\.io$",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+CORS_ALLOWED_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
 ]
 
 AUTH_USER_MODEL = 'accounts.Perfil'
@@ -69,12 +89,22 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
+<<<<<<< HEAD
     #'DEFAULT_AUTHENTICATION_CLASSES': [
         #'rest_framework.authentication.TokenAuthentication',
     #],
     #'DEFAULT_PERMISSION_CLASSES': (
         #'rest_framework.permissions.IsAuthenticated',
     #),
+=======
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+>>>>>>> master
     'DEFAULT_THROTTLE_RATES': {
         'login': '5/minute',  # Limitar los intentos de inicio de sesión
     }
