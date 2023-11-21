@@ -6,6 +6,8 @@ import { catchError, map } from 'rxjs/operators';
 
 import { Subcategoria } from './model/ClSubcategorias';
 
+import { Comentario } from './model/ClProducto';
+
 interface Producto {
   producto_id: number;
   nombre: string;
@@ -13,6 +15,7 @@ interface Producto {
   descripcion: string;
   imagen: string;
   stock: number;
+  valoraciones: number;
 }
 @Injectable({
   providedIn: 'root',
@@ -22,7 +25,7 @@ export class ProductosService {
   private apiUrl = 'http://localhost:8000/api';
   private apiUrlProductos = 'http://localhost:8000/api/productos';
 
-  private producto: Producto[] = []
+  private productos: Producto[] = []
   private detalleSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public detalle$: Observable<any> = this.detalleSubject.asObservable();
 

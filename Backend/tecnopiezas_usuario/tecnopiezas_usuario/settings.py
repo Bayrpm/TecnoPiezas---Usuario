@@ -89,22 +89,12 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-<<<<<<< HEAD
     #'DEFAULT_AUTHENTICATION_CLASSES': [
         #'rest_framework.authentication.TokenAuthentication',
     #],
     #'DEFAULT_PERMISSION_CLASSES': (
         #'rest_framework.permissions.IsAuthenticated',
     #),
-=======
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
->>>>>>> master
     'DEFAULT_THROTTLE_RATES': {
         'login': '5/minute',  # Limitar los intentos de inicio de sesión
     }
