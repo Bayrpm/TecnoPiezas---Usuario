@@ -3,11 +3,11 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+          <ion-list-header>TecnoPiezas</ion-list-header>
+          <ion-note>Bienvenido al apartado de administracion</ion-note>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+          <ion-menu-toggle  auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item *ngIf="usuarioLogeado" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
@@ -15,6 +15,11 @@
         </ion-list>
 
         <ion-button *ngIf="usuarioLogeado" expand="block" (click)="logout()">Cerrar Sesión</ion-button>
+
+        <ion-item *ngIf="usuarioLogeado" [routerLink]="'/cambiar-contrasena'" routerDirection="root">
+          <ion-icon slot="start" name="key"></ion-icon>
+          <ion-label>Cambiar Contraseña</ion-label>
+        </ion-item>
 
       </ion-content>
     </ion-menu>

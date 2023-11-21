@@ -29,7 +29,7 @@ export class InicioSesionPage implements OnInit {
         if (response && response.token) {
           localStorage.setItem('token', response.token);
 
-          this.router.navigate(['/locales-home']);
+          this.router.navigate(['/inicio']);
         }
       },
       (error: any) => {

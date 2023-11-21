@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>cambiar-contrasena</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Estructura para verificar contraseña actual -->
+<ion-content *ngIf="!validPassword">
+  <ion-input type="password" [(ngModel)]="currentPassword"></ion-input>
+  <ion-button (click)="verificarContrasena()">Verificar Contraseña</ion-button>
+</ion-content>
+
+<!-- Estructura para cambiar la contraseña -->
+<ion-content *ngIf="validPassword">
+  <ion-input type="password" [(ngModel)]="newPassword"></ion-input>
+  <ion-input type="password" [(ngModel)]="confirmNewPassword"></ion-input>
+  <ion-button (click)="cambiarContrasena(newPassword, confirmNewPassword)">Cambiar Contraseña</ion-button>
+</ion-content>
+
