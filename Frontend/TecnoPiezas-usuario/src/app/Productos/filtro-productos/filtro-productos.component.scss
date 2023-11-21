@@ -1,19 +1,19 @@
 .filtro-productos {
+    margin: 10px;
     display: flex;
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
-    background: #002d72;
     height: 100px;
     width: auto;
 }
 
 .buscador,
 .selector {
-    background: #00aeef;
+    background: #f1f1f1;
     height: 30px;
     flex: 1;
-    margin: 10px 5px 5px;
+    margin: 5px 5px 5px;
     color: #000;
     font-weight: 530;
     /* Añade espacio entre los elementos si lo deseas */
@@ -21,7 +21,7 @@
 
 .buscador,
 button {
-    border-radius: 15px;
+    border-radius: 8px;
 }
 
 .selector,
@@ -37,10 +37,17 @@ button {
 
 .selector2,
 button {
-    background: #00aeef;
     height: 30px;
-    margin: 1px 5px 8px;
+    margin: 1px 5px 6px;
     flex: 1;
     color: #000;
     font-weight: 600;
+}
+
+.selector2 {
+    background: #f1f1f1;
+}
+
+button {
+    background: #3880ff;
 }

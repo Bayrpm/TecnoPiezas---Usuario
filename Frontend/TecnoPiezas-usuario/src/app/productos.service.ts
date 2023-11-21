@@ -18,17 +18,16 @@ interface Producto {
 @Injectable({
   providedIn: 'root',
 })
-
-
 export class ProductosService {
-  private carrito: Producto[] = [];
-  private carritoSubject = new BehaviorSubject<Producto[]>(this.carrito);
-  carrito$ = this.carritoSubject.asObservable();
 
   private producto: Producto[] = []
   private detalleSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public detalle$: Observable<any> = this.detalleSubject.asObservable();
 
+
+  private carrito: Producto[] = [];
+  private carritoSubject = new BehaviorSubject<Producto[]>(this.carrito);
+  carrito$ = this.carritoSubject.asObservable();
 
   private apiUrl = 'http://localhost:8000/api';
   private apiUrlProductos = 'http://localhost:8000/api/productos';
@@ -45,9 +44,8 @@ export class ProductosService {
     }
   }
 
-
-  getDetallesProducto(id: number): void {
-    this.http.get(`${this.apiUrlProductos}/${id}`).subscribe(
+  getDetallesProducto(producto_id: number): void {
+    this.http.get(`${this.apiUrlProductos}/${producto_id}`).subscribe(
       (producto) => {
         this.detalleSubject.next(producto);
       },
@@ -114,76 +112,57 @@ export class ProductosService {
   }
 
   // Métodos para el carrito
-
-  agregarAlCarrito(producto: Producto): void {
-    // Verificar si el usuario ha iniciado sesión
-    if (this.isLoggedIn()) {
-      const userId = this.getUserId();
-
-      // Obtener el carrito actual del usuario desde el almacenamiento local
-      const carrito = JSON.parse(localStorage.getItem(`carrito_${userId}`) || '[]');
-
-      let added = false;
-
-      for (let p of carrito) {
-        if (p.producto_id === producto.producto_id) {
-          p.cantidad += 1;
-          added = true;
-          break;
-        }
-      }
-
-      if (!added) {
-        carrito.push({ ...producto, stock: 1, cantidad: 1 });
-      }
-
-      // Guardar el carrito actualizado en el almacenamiento local
-      localStorage.setItem(`carrito_${userId}`, JSON.stringify(carrito));
-
-      // Actualizar el carrito en el servicio
-      this.carrito = carrito;
-      this.carritoSubject.next([...this.carrito]);
-
-      // Realizar otras acciones después de actualizar el carrito si es necesario
-      this.actualizarCarrito();
-    } else {
-      // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
-      this.router.navigate(['/inicio-sesion']);
-    }
-  }
-
   private isLoggedIn(): boolean {
     return localStorage.getItem('token') !== null;
   }
-
-  private getUserId(): any {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      try {
-        const userData = JSON.parse(atob(token.split('.')[1])); // Decodificar el payload del token Base64
-        return userData.userId; // Ajusta esto según la estructura del payload de tu token
-      } catch (error) {
-        console.error('Error al obtener el ID de usuario desde el token:', error);
+  
+  agregarAlCarrito(producto: Producto): void {
+    if (!this.isLoggedIn()) {
+      this.router.navigate(['/inicio-sesion']);
+      return; // Return early if not logged in
+    }
+  
+    const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+  
+    let added = false;
+  
+    for (let p of carrito) {
+      if (p.producto_id === producto.producto_id) {
+        p.cantidad += 1;
+        added = true;
+        break;
       }
     }
-
-    return null;
-  }
-
-  disminuirCantidad(producto: Producto): void {
-    for (const [index, item] of this.carrito.entries()) {
-      if (item.producto_id === producto.producto_id) {
-        item.cantidad -= 1;
-
-        if (item.cantidad === 0) {
-          this.carrito.splice(index, 1);
-        }
-      }
+  
+    if (!added) {
+      carrito.push({ ...producto, stock: 1, cantidad: 1 });
     }
-
+  
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    this.carrito = carrito;
+    this.carritoSubject.next([...this.carrito]);
     this.actualizarCarrito();
   }
+  
+
+
+  disminuirCantidad(producto: Producto): void {
+    const index = this.carrito.findIndex((item: { producto_id: number; }) => item.producto_id === producto.producto_id);
+  
+    if (index !== -1) {
+      this.carrito[index].cantidad -= 1;
+  
+      if (this.carrito[index].cantidad === 0) {
+        this.carrito.splice(index, 1);
+      }
+  
+      this.actualizarCarrito(); // Agrega esta línea
+    } else {
+      console.error('Producto no encontrado en el carrito:', producto);
+    }
+  }
+  
+  
 
   eliminarDelCarrito(productoId: number): void {
     this.carrito = this.carrito.filter((producto) => producto.producto_id == productoId);
@@ -191,9 +170,11 @@ export class ProductosService {
   }
 
   vaciarCarrito(): void {
+    localStorage.removeItem('carrito');
     this.carrito = [];
     this.actualizarCarrito();
   }
+  
 
   obtenerCarrito(): Observable<Producto[]> {
     return this.carritoSubject.asObservable();
@@ -202,23 +183,24 @@ export class ProductosService {
   obtenerTotal(): number {
     return this.carrito.reduce((total, producto) => total + producto.precio * producto.stock, 0);
   }
-
   finalizarCompra(): void {
     this.carrito.forEach((producto) => {
-      producto.stock -= producto.stock;
+      // Restar la cantidad comprada del stock
+      producto.stock -= producto.cantidad;
+  
+      // Establecer la cantidad en 0 ya que se compraron todos los existentes
       producto.cantidad = 0;
     });
-
+  
     this.vaciarCarrito();
   }
+  
 
   private actualizarCarrito(): void {
-    const userId = this.getUserId();
-    const carrito = JSON.parse(localStorage.getItem(`carrito_${userId}`) || '[]');
-
-    this.carritoSubject.next([...carrito]);
-    localStorage.setItem(`carrito_${userId}`, JSON.stringify(carrito));
+    this.carritoSubject.next([...this.carrito]);
+    localStorage.setItem('carrito', JSON.stringify(this.carrito));
   }
+  
 
   // Métodos para registrar usuarios y crear perfiles
 

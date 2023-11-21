@@ -22,7 +22,7 @@ export class Tab3Page implements OnInit {
   }
 
   aumentarCantidad(producto: Producto): void {
-    this.productosService.agregarAlCarrito(producto);
+    this.productosService.agregarAlCarrito(producto );
   }
 
   disminuirCantidad(producto: Producto): void {

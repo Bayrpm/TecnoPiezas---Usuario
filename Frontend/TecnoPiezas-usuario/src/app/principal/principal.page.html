@@ -48,7 +48,7 @@
                         <ion-fab-button class="centered-fab-button">
                             <ion-icon name="ribbon" style="display: flex; "></ion-icon>
                         </ion-fab-button>
-                        <p style="margin-top: 4px; text-align: center;">Mas <br> Ofertas</p>
+                        <p style="margin-top: 4px; margin-left: -8px; text-align: center;">Mejor <br> Valorados</p>
                     </ion-fab>
                 </ion-col>
                 <ion-col>
@@ -86,10 +86,13 @@
                                 <p class="ion-padding-start">Precio: {{ producto.precio | currency:'CLP' }}</p>
                             </ion-item>
                         </ion-card-content>
-                        <ion-button expand="full" (click)="agregarAlCarrito(producto)">
-                            Añadir al carrito
-                        </ion-button>
 
+                        <!-- Botón "Añadir al carrito" en el footer de la tarjeta -->
+                        <ion-card-subtitle>
+                            <ion-button expand="full" (click)="agregarAlCarrito(producto)">
+                                Añadir al carrito
+                            </ion-button>
+                        </ion-card-subtitle>
                     </ion-card>
                 </ion-col>
             </ion-row>

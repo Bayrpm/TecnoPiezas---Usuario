@@ -31,6 +31,7 @@ export class PrincipalPage implements OnInit {
     });
   }
 
+
   navegarAProductosDetalles(producto_id: number) {
     this.productosService.getDetallesProducto(producto_id);
 
