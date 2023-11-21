@@ -123,7 +123,7 @@ DATABASES = {
         'NAME': 'TecnoPiezas',
         'USER': 'admin',
         'PASSWORD': 'admin1234',
-        'HOST': 'tecno-piezas.clvurfghvcpy.us-east-2.rds.amazonaws.com',
+        'HOST': 'tecnopiezas.cxx0nxw6mals.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
