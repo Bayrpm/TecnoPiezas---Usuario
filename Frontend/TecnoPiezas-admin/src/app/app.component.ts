@@ -27,7 +27,7 @@ export class AppComponent {
     this.adminService.CerrarSesion().subscribe(
       () => {
         
-        this.router.navigate(['/inicio-sesion/']);
+        this.router.navigate(['/inicio-sesion-privado/']);
 
         console.log('Logout exitoso');
       },
