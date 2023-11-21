@@ -76,11 +76,11 @@
         <ion-grid [fixed]="true">
             <ion-row class="ion-no-padding">
                 <ion-col size="6" *ngFor="let producto of productos" class="ion-no-padding">
-                    <ion-card class="custom-card">
+                    <ion-card class="custom-card" >
                         <ion-card-header>
                             <ion-card-title>{{ producto.nombre }}</ion-card-title>
                         </ion-card-header>
-                        <ion-card-content class="ion-no-padding" style="display: flex; flex-direction: column; align-items: center; " (click)="navegarAProductosDetalles(producto.producto_id)">
+                        <ion-card-content class="6bc1fa" style="display: flex; flex-direction: column; align-items: center; " (click)="navegarAProductosDetalles(producto.producto_id)">
                             <img class="imagen centered-image" [src]="producto.imagen" alt="Descripción de la imagen">
                             <ion-item class="ion-no-padding">
                                 <p class="ion-padding-start">Precio: {{ producto.precio | currency:'CLP' }}</p>

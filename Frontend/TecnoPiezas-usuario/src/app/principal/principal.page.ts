@@ -3,6 +3,8 @@ import { ProductosService } from '../productos.service';
 import { Producto } from '../model/ClProducto';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { IonContent } from '@ionic/angular';
+
 declare var google: any;
 
 
@@ -70,6 +72,10 @@ export class PrincipalPage implements OnInit {
 agregarAlCarrito(producto: Producto) {
   // Asegúrate de que 'producto' sea un objeto válido antes de llamar a esta función
   this.productosService.agregarAlCarrito(producto);
+}
+
+trackByProducto(index: number, producto: any): number {
+  return producto.producto_id; // Reemplaza con la propiedad única de tu producto
 }
 
 }
