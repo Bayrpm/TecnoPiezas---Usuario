@@ -1,16 +1,64 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable,Subject  } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable,Subject, catchError, map, tap, throwError  } from 'rxjs';
+
+import { Router } from '@angular/router';
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
   private apiUrl = 'http://localhost:8000/api';
+  private accountsUrl = 'http://localhost:8000/accounts';
+  router: any;
+  private headers: HttpHeaders;
+  private estaLogeadoSubject = new BehaviorSubject<boolean>(false);
+  estaLogeado$ = this.estaLogeadoSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  getApiUrl(): string {
+    return this.apiUrl;
+  }
 
-  // Productos
+  get estaLogeado(): boolean {
+    return this.estaLogeadoSubject.value;
+  }
+
+  setLogeado(estado: boolean): void {
+    this.estaLogeadoSubject.next(estado);
+  }
+
+  constructor(private http: HttpClient) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+  }
+
+  // Producto
+
+  getproductos(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/producto/`);
+  }
+
+  getproducto(producto_id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/producto/${producto_id}/`);
+  }
+
+  crearproducto(productoData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/producto/`, productoData);
+  }
+
+  actualizarproducto(producto_id: number, productoData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/producto/${producto_id}/`, productoData);
+  }
+
+  eliminarproducto(producto_id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/producto/${producto_id}`);
+  }
+
+  private ProductoUpdatedSubject: Subject<void> = new Subject<void>();
 
   getProductos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/productos/`);
@@ -20,17 +68,24 @@ export class AdminService {
     return this.http.get(`${this.apiUrl}/productos/${producto_id}/`);
   }
 
-  crearProducto(productoData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/productos/`, productoData);
+  addProductos(productosData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/productos/`, productosData);
   }
 
-  actualizarProducto(producto_id: number, productoData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/productos/${producto_id}/`, productoData);
+  updateProductos(producto_id: number, productosData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/productos/${producto_id}/`, productosData);
   }
 
-  eliminarProducto(producto_id: number): Observable<any> {
+  deleteProductos(producto_id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/productos/${producto_id}`);
   }
+  notifyProductoUpdated() {
+    this.ProductoUpdatedSubject.next();
+  }
+  onProductoUpdated(): Observable<void> {
+    return this.ProductoUpdatedSubject.asObservable();
+  }
+
 
   // Locales
 
@@ -60,21 +115,6 @@ export class AdminService {
   }
   onLocalUpdated(): Observable<void> {
     return this.localUpdatedSubject.asObservable();
-  }
-
-  // Categorías y Subcategorías
-
-  getCategorias(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/categorias/`);
-  }
-
-  getSubcategoriasPorCategoria(categoriaId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/subcategorias_por_categoria/${categoriaId}`);
-  }
-
-  login(loginData: { username: string; password: string }): Observable<any> {
-    const url = `${this.apiUrl}/login/`; // Reemplaza con la ruta correcta en tu backend
-    return this.http.post(url, loginData);
   }
 
   // Bodega ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,6 +149,119 @@ export class AdminService {
     return this.bodegaUpdatedSubject.asObservable();
   }
 
+  // Categorías ================================================================================================
+
+  private categoriaUpdatedSubject: Subject<void> = new Subject<void>();
+
+  getCategorias(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/categorias/`);
+  }
+
+  getCategoria(id_categoria: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/categorias/${id_categoria}/`);
+  }
+
+  addCategoria(categoriaData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/categorias/`, categoriaData);
+  }
+
+  updateCategoria(id_categoria: number, categoriaData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/categorias/${id_categoria}/`, categoriaData);
+  }
+
+  deleteCategoria(id_categoria: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/categorias/${id_categoria}`);
+  }
+
+  notifyCategoriaUpdated() {
+    this.categoriaUpdatedSubject.next();
+  }
+
+  onCategoriaUpdated(): Observable<void> {
+    return this.categoriaUpdatedSubject.asObservable();
+  }
+
+  // Sub--------------Categorías ================================================================================================
+
+  private subcategoriaUpdatedSubject: Subject<void> = new Subject<void>();
+
+  getSubs(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/sub-categorias/`);
+  }
+
+  getSub(subcategoria_id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/sub-categorias/${subcategoria_id}/`);
+  }
+
+  addSub(subcategoriaData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/sub-categorias/`, subcategoriaData);
+  }
+
+  updateSub(subcategoria_id: number, subcategoriaData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/sub-categorias/${subcategoria_id}/`, subcategoriaData);
+  }
+
+  deleteSub(subcategoria_id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/sub-categorias/${subcategoria_id}`);
+  }
+
+  notifySubUpdated() {
+    this.subcategoriaUpdatedSubject.next();
+  }
+
+  onSubUpdated(): Observable<void> {
+    return this.subcategoriaUpdatedSubject.asObservable();
+  }
+
+  
+
+
+
+
+
+
+  iniciarSesionPrivado(userData: any) {
+    return this.http.post(`${this.accountsUrl}/inicio-sesion-privado/`, userData)
+      .pipe(
+        tap(() => {
+          this.setLogeado(true);
+        })
+      );
+  }
+  
+  CerrarSesion(): Observable<any> {
+    const url = `${this.accountsUrl}/cerrar-sesion/`;
+    return this.http.post<any>(url, {}, { headers: this.headers })
+      .pipe(
+        tap(() => {
+          this.setLogeado(false);
+        })
+      );
+  }
+
+  agregarAdmin(nombre: string, apellido: string): Observable<any> {
+    const data = { nombre, apellido };
+
+    return this.http.post(`${this.accountsUrl}/agregar-admin/`, data, {
+      headers: this.headers,
+    });
+  }
+
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ImageUploadService {
+  constructor(private http: HttpClient, private adminService: AdminService) {}
+
+  uploadImage(file: File, producto_id: number): Observable<any> {
+    const apiUrl = this.adminService.getApiUrl(); // Usa el método público
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    return this.http.post(`${apiUrl}/productos/upload-image/${producto_id}/`, formData);
+  }
 }
 
 

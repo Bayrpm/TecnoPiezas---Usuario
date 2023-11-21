@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from .models import Producto, Categoria, Subcategoria, Locales, Bodegas, DetalleBodega
+from django.contrib.auth import authenticate
+
+from .models import *
 
 class ProductoSerializer(serializers.ModelSerializer):
     imagen = serializers.SerializerMethodField()

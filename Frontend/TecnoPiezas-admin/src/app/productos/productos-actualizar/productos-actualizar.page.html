@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-title>Modificar</ion-title>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+      <ion-buttons slot="end">
+          <ion-back-button text="Volver" defaultHref="/productos-home"></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="productosForm" (ngSubmit)="onFormSubmit(productosForm.value)">
+      <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input type="text" placeholder="Nombre del producto" formControlName="pro_nom" [(ngModel)]="producto.nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">precio</ion-label>
+          <ion-textarea placeholder="precio" formControlName="pro_precio" [(ngModel)]="producto.precio"></ion-textarea>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">stock</ion-label>
+          <ion-input type="text" placeholder="stock" formControlName="pro_stock" [(ngModel)]="producto.stock"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">descripcion</ion-label>
+          <ion-input type="tel" placeholder="desc" formControlName="pro_desc" [(ngModel)]="producto.descripcion"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">imagen</ion-label>
+          <ion-input type="tel" placeholder="imng" formControlName="pro_img" [(ngModel)]="producto.imagen"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">categoria</ion-label>
+          <ion-input type="tel" placeholder="cate" formControlName="pro_cate" [(ngModel)]="producto.categoria"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">subcategoria</ion-label>
+          <ion-input type="tel" placeholder="subcate" formControlName="pro_subcate" [(ngModel)]="producto.subcategoria"></ion-input>
+      </ion-item>
+      <ion-button type="submit" shape="round" color="primary" expand="block" [disabled]="!productosForm.valid">Submit</ion-button>
+  </form>
+</ion-content>

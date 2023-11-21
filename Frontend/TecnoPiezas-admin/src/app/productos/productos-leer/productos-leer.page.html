@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+          <ion-back-button text="Volver" defaultHref="/productos-home"></ion-back-button>
+
+      </ion-buttons>
+      <ion-title>Nuestros productos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+      <ion-item *ngFor="let producto of producto">
+          <ion-card>
+              <ion-card-header>
+
+                  <ion-card-title>{{producto.nombre}}</ion-card-title>
+              </ion-card-header>
+
+              <ion-card-content>
+                  <ion-item>
+                      <p>precio : </p>
+                      <p class="ion-padding-start">{{producto.precio}}</p>
+
+                  </ion-item>
+                  <ion-item>
+                      <p>stock : </p>
+                      <p class="ion-padding-start">{{producto.stock}}</p>
+                  </ion-item>
+                  <ion-item>
+                      <p>descripcion : </p>
+                      <p class="ion-padding-start">{{producto.descripcion}}</p>
+                  </ion-item>
+                  <ion-item>
+                    <p>imagen : </p>
+                    <p class="ion-padding-start">{{producto.imagen}}</p>
+                  </ion-item>
+                  <ion-item>
+                    <p>categoria : </p>
+                    <p class="ion-padding-start">{{producto.categoria}}</p>
+                  </ion-item>
+                  <ion-item>
+                    <p>subcategoria : </p>
+                    <p class="ion-padding-start">{{producto.subcategoria}}</p>
+                  </ion-item>
+
+                  <ion-button type="button" shape="round" color="primary" expand="block" routerLink="/productos-actualizar/{{producto.producto_id}}">Editar</ion-button>
+                  <ion-button type="button" shape="round" color="danger" expand="block" (click)="deleteProductos(producto.producto_id)">
+                      Eliminar
+                  </ion-button>
+
+              </ion-card-content>
+          </ion-card>
+      </ion-item>
+  </ion-list>
+  <ng-template #noProductos>
+      <div class="no-Productos">
+          <p style="color: #f1f1ff; text-align: center; font-weight: 700;">No se han agregado Productos. Por favor, agrega uno.</p>
+          <ion-button routerLink="/productos-agregar" style="display: flex; justify-content: center;" shape="round" color="primary">Agregar Producto</ion-button>
+      </div>
+  </ng-template>
+</ion-content>
