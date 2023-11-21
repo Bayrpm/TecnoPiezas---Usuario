@@ -31,11 +31,11 @@ export class PrincipalPage implements OnInit {
     });
   }
 
-  navegarAProductosDetalles(idProducto: number) {
-    this.productosService.getDetallesProducto(idProducto);
+  navegarAProductosDetalles(producto_id: number) {
+    this.productosService.getDetallesProducto(producto_id);
 
-    // Después de obtener los detalles, puedes navegar a la página de detalles
-    this.navCtrl.navigateForward(`/detalle/${idProducto}`);
+   // Después de obtener los detalles, puedes navegar a la página de detalles
+    this.navCtrl.navigateForward(`/detalle/${producto_id}`);
   }
 
   agregarAlCarrito(producto: Producto): void {

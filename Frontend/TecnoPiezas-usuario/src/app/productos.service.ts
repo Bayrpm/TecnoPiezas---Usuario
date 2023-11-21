@@ -18,12 +18,20 @@ interface Producto {
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class ProductosService {
   private carrito: Producto[] = [];
   private carritoSubject = new BehaviorSubject<Producto[]>(this.carrito);
   carrito$ = this.carritoSubject.asObservable();
 
+  private producto: Producto[] = []
+  private detalleSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public detalle$: Observable<any> = this.detalleSubject.asObservable();
+
+
   private apiUrl = 'http://localhost:8000/api';
+  private apiUrlProductos = 'http://localhost:8000/api/productos';
   private accountsUrl = 'http://localhost:8000/accounts';
 
   private productosFiltradosSubject = new BehaviorSubject<any[]>([]);
@@ -35,6 +43,18 @@ export class ProductosService {
       this.carrito = JSON.parse(carritoLocal);
       this.carritoSubject.next([...this.carrito]);
     }
+  }
+
+
+  getDetallesProducto(id: number): void {
+    this.http.get(`${this.apiUrlProductos}/${id}`).subscribe(
+      (producto) => {
+        this.detalleSubject.next(producto);
+      },
+      (error) => {
+        console.error('Error al obtener detalles del producto', error);
+      }
+    );
   }
 
   obtenerTodosLosProductos(): Observable<any> {
