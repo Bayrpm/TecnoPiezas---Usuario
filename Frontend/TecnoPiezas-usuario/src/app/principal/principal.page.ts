@@ -20,7 +20,7 @@ export class PrincipalPage implements OnInit {
   productos: Producto[] = [];
 
   constructor(private productosService: ProductosService, private router: Router, private navCtrl: NavController) {}
-
+  
   ngOnInit(): void {
     this.cargarProductos();
   }
@@ -33,13 +33,14 @@ export class PrincipalPage implements OnInit {
 
   navegarAProductosDetalles(idProducto: number) {
     this.productosService.getDetallesProducto(idProducto);
-
+  
     // Después de obtener los detalles, puedes navegar a la página de detalles
     this.navCtrl.navigateForward(`/detalle/${idProducto}`);
   }
 
-  agregarAlCarrito(producto: Producto): void {
-    this.productosService.agregarAlCarrito(producto);
-  }
+agregarAlCarrito(producto: Producto) {
+  // Asegúrate de que 'producto' sea un objeto válido antes de llamar a esta función
+  this.productosService.agregarAlCarrito(producto);
+}
 
 }
