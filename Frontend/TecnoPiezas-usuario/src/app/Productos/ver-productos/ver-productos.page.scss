@@ -1,24 +1,28 @@
 .custom-card {
     width: 190px;
-    margin: 0 auto;
+    margin: 5px 0 auto;
+    min-height: 370px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    ion-card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-grow: 1;
+        margin-bottom: 10px;
+    }
+    ion-button {
+        width: 100%;
+        background-color: #3880ff;
+        color: #fff;
+        border-radius: 0;
+        margin-top: auto; // Ajusta el margen superior para empujar el botón hacia abajo
+    }
 }
 
 .imagen {
     margin: 0 auto;
     width: 90%;
     border-radius: 5px;
-}
-
-.star-rating-container {
-    display: flex;
-    align-items: center;
-    /* Centra verticalmente los elementos */
-}
-
-
-/* Estilo opcional para ajustar el espacio entre los elementos */
-
-.star-rating-container app-star-rating {
-    margin-right: 5px;
-    /* Espacio entre el componente de calificación y el valor */
 }
