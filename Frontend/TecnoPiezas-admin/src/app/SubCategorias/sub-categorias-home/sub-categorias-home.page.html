@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Subcategoria</ion-title>
+      <ion-buttons slot="end">
+          <ion-back-button text="Volver" defaultHref="/"></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+      <ion-row>
+          <ion-col>
+              <ion-button routerLink="/sub-categorias-agregar" class="custom-button">
+                  <ion-label>Agregar Subcategoria</ion-label>
+                  <svg xmlns="" class="ionicon" viewBox="0 0 512 512">
+                      <!-- Reemplaza con el icono adecuado para agregar sub -->
+                      <!-- ... -->
+                  </svg>
+              </ion-button>
+          </ion-col>
+          <ion-col>
+              <ion-button routerLink="/sub-categorias-leer" class="custom-button">
+                  <ion-label>Listar Subcategorias</ion-label>
+                  <svg xmlns="" class="ionicon" viewBox="0 0 512 512">
+                      <!-- Reemplaza con el icono adecuado para listar sub -->
+                      <!-- ... -->
+                  </svg>
+              </ion-button>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>
+

@@ -10,7 +10,7 @@ import { Producto } from '../model/ClProducto';
 export class Tab3Page implements OnInit {
   productosEnCarrito: Producto[] = [];
   total: number = 0;
-  
+
 
   constructor(private productosService: ProductosService) {}
 
@@ -28,7 +28,7 @@ export class Tab3Page implements OnInit {
   disminuirCantidad(producto: Producto): void {
     this.productosService.disminuirCantidad(producto);
   }
-  
+
 
   eliminarDelCarrito(productoId: number): void {
     this.productosService.eliminarDelCarrito(productoId);

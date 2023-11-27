@@ -1,70 +1,70 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>Carrito de Compras</ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+      <ion-title>Carrito de Compras</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-list>
-        <ion-item *ngFor="let producto of productosEnCarrito">
-            <ion-grid>
-                <ion-row>
-                    <ion-col size="4">
-                        <img *ngIf="producto.imagen" class="imagen centered-image" [src]="producto.imagen" alt="Descripción de la imagen">
-                    </ion-col>
-                    <ion-col size="8">
-                        <ion-item>
-                            <ion-col>
-                                <h5>{{ producto.nombre }}</h5>
-                            </ion-col>
-                            <ion-col style="margin-left: 13px;">
-                                <p>Precio:</p>
-                                <p>{{ producto.precio | currency:'CLP' }}</p>
-                            </ion-col>
-                        </ion-item>
-                        <ion-grid>
-                            <ion-row>
-                                <ion-col>
-                                    <ion-button (click)="aumentarCantidad(producto)">&plus;</ion-button>
-                                    <ion-button (click)="disminuirCantidad(producto)">&minus;</ion-button>
-                                </ion-col>
-                                <ion-col>
-                                    <p>Cantidad: {{ producto.cantidad }}</p>
+  <ion-list>
+      <ion-item *ngFor="let producto of productosEnCarrito">
+          <ion-grid>
+              <ion-row>
+                  <ion-col size="4">
+                      <img *ngIf="producto.imagen" class="imagen centered-image" [src]="producto.imagen" alt="Descripción de la imagen">
+                  </ion-col>
+                  <ion-col size="8">
+                      <ion-item>
+                          <ion-col>
+                              <h5>{{ producto.nombre }}</h5>
+                          </ion-col>
+                          <ion-col style="margin-left: 13px;">
+                              <p>Precio:</p>
+                              <p>{{ producto.precio | currency:'CLP' }}</p>
+                          </ion-col>
+                      </ion-item>
+                      <ion-grid>
+                          <ion-row>
+                              <ion-col>
+                                  <ion-button (click)="aumentarCantidad(producto)">&plus;</ion-button>
+                                  <ion-button (click)="disminuirCantidad(producto)">&minus;</ion-button>
+                              </ion-col>
+                              <ion-col>
+                                  <p>Cantidad: {{ producto.cantidad }}</p>
 
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-item>
-    </ion-list>
+                              </ion-col>
+                          </ion-row>
+                      </ion-grid>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+      </ion-item>
+  </ion-list>
 
 </ion-content>
 
 <ion-footer class="custom-footer">
-    <ion-grid class="custom-div">
-        <ion-row>
-            <ion-col size="12" class="cupon-container">
-                <ion-item class="centered-item">
-                    <ion-label position="stacked">Cupón:</ion-label>
-                    <ion-input placeholder="Ingrese cupón" class="custom-input"></ion-input>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col size="12" class="buttons-container">
-                <ion-item class="total-container">
-                    <ion-label>Total:</ion-label>
-                    <ion-text>{{ total | currency:'CLP' }}</ion-text>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col size="12" class="buttons-container">
-                <ion-button (click)="vaciarCarrito()" class="custom-button">Vaciar carrito</ion-button>
-                <ion-button (click)="finalizarCompra()" class="custom-button">Comprar</ion-button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+  <ion-grid class="custom-div">
+      <ion-row>
+          <ion-col size="12" class="cupon-container">
+              <ion-item class="centered-item">
+                  <ion-label position="stacked">Cupón:</ion-label>
+                  <ion-input placeholder="Ingrese cupón" class="custom-input"></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col size="12" class="buttons-container">
+              <ion-item class="total-container">
+                  <ion-label>Total:</ion-label>
+                  <ion-text>{{ total | currency:'CLP' }}</ion-text>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col size="12" class="buttons-container">
+              <ion-button (click)="vaciarCarrito()" class="custom-button">Vaciar carrito</ion-button>
+              <ion-button (click)="finalizarCompra()" class="custom-button">Comprar</ion-button>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
 </ion-footer>

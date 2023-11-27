@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+          <ion-back-button text="Volver" defaultHref="/sub-categorias-home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Nuestras Subcategorias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+      <ion-item *ngFor="let subcategoria of subcategorias">
+          <ion-card>
+              <ion-card-header>
+                  <ion-card-title>{{subcategoria.nombre_subcategoria}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                  <ion-item>
+                      <p>categoria : </p>
+                      <p class="ion-padding-start">{{subcategoria.categoria}}</p>
+                  </ion-item>
+
+                  <ion-button type="button" shape="round" color="primary" expand="block" routerLink="/sub-categorias-actualizar/{{ subcategoria.subcategoria_id }}">Editar</ion-button>
+                  <ion-button type="button" shape="round" color="danger" expand="block" (click)="deleteSub(subcategoria.subcategoria_id)">
+                      Eliminar
+                  </ion-button>
+              </ion-card-content>
+          </ion-card>
+      </ion-item>
+  </ion-list>
+  <ng-template #noSubcategoria>
+      <div class="no-subcategoria">
+          <p style="color: #f1f1ff; text-align: center; font-weight: 700;">No se han agregado subcategoria. Por favor, agrega una.</p>
+          <ion-button routerLink="/sub-categorias-agregar" style="display: flex; justify-content: center;" shape="round" color="primary">Agregar subcategoria</ion-button>
+      </div>
+  </ng-template>
+</ion-content>

@@ -27,6 +27,8 @@ export class RegistroPage implements OnInit {
       (response: any) => {
         if (response && response.token) {
           localStorage.setItem('token', response.token);
+
+          this.router.navigate(['/tabs/principal']);
         }
       },
       (error: any) => {

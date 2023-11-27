@@ -26,7 +26,7 @@ export class InicioSesionPage implements OnInit {
         if (response && response.token) {
           localStorage.setItem('token', response.token);
 
-          this.router.navigate(['/registro']);
+          this.router.navigate(['/tabs/principal']);
         }
       },
       (error: any) => {
