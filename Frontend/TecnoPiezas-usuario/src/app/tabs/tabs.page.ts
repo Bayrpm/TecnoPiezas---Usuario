@@ -21,4 +21,8 @@ export class TabsPage implements OnInit {
   irAInicioSesion() {
     this.router.navigate(['/inicio-sesion']);
   }
+
+  irRegistro() {
+    this.router.navigate(['/registro']);
+  }
 }

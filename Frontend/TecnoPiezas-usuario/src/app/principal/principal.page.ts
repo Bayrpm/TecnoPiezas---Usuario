@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ProductosService } from '../productos.service';
 import { Producto } from '../model/ClProducto';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { IonContent } from '@ionic/angular';
 
+declare var google: any;
 
 @Component({
   selector: 'app-principal',
@@ -11,6 +13,8 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['principal.page.scss']
 })
 export class PrincipalPage implements OnInit {
+  @ViewChild('map', { static: true }) mapElement!: ElementRef;
+  map: any;
   images: string[] = [
     'https://media.spdigital.cl/file_upload/Mobile_Hero_2_2bdd4d61.png',
     'https://media.spdigital.cl/file_upload/Mobile_Hero_3_40708f1a.png',
@@ -23,6 +27,32 @@ export class PrincipalPage implements OnInit {
 
   ngOnInit(): void {
     this.cargarProductos();
+    this.loadGoogleMapsScript().then(() => {
+      this.initMap();
+    });
+  }
+
+  private loadGoogleMapsScript(): Promise<void> {
+    const script = document.createElement('script');
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAXWQjGCFqMyPOFX7qh1Nz3LUSec-PKHwc';
+    script.async = true;
+    script.defer = true;
+
+    return new Promise((resolve, reject) => {
+      script.onload = () => resolve();
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  private initMap() {
+    const mapOptions = {
+      center: new google.maps.LatLng(-33.59217, -70.6996),
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+    };
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
   }
 
   cargarProductos() {

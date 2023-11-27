@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Agregar SubCategoria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="subForm" (ngSubmit)="onFormSubmit()">
+      <ion-item>
+          <ion-label position="floating">nombre_subcategoria</ion-label>
+          <ion-input type="text" placeholder="nombre de la subcategoria" formControlName="sub_nombre" [(ngModel)]="subcategoria.nombre_subcategoria"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">id de categoria</ion-label>
+          <ion-input type="number" placeholder="id categoria" formControlName="sub_cate" [(ngModel)]="subcategoria.categoria"></ion-input>
+      </ion-item>
+      <!-- Otros campos de la subcategoria -->
+      <ion-button type="submit" shape="round" color="primary" expand="block" [disabled]="!subForm.valid">
+          Enviar
+      </ion-button>
+  </form>
+</ion-content>

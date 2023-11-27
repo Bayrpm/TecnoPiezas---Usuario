@@ -1,0 +1,24 @@
+.custom-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 290px;
+    border-radius: 20px;
+}
+
+.custom-button svg {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(35%, -50%);
+    height: 270px;
+    opacity: 0.5;
+}
+
+.custom-button ion-label {
+    position: relative;
+    z-index: 1;
+    font-weight: bold;
+    text-align: center;
+    font-size: larger;
+}

@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Agregar producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="productosForm" (ngSubmit)="onFormSubmit()" enctype="multipart/form-data" action="/api/productos/upload-image/0/" method="post">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input type="text" placeholder="" formControlName="pro_nom"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input type="number" placeholder="" formControlName="pro_precio"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Stock</ion-label>
+      <ion-input type="number" placeholder="" formControlName="pro_stock"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descripcion</ion-label>
+      <ion-input type="text" placeholder="" formControlName="pro_desc" maxlength="16"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Imagen</ion-label>
+      <input type="file" (change)="onImageSelected($event)" name="pro_img" id="imageInput" accept="image/*">
+      <label for="imageInput" class="custom-file-upload">Seleccionar imagen</label>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Categoria</ion-label>
+      <ion-input type="number" placeholder="" formControlName="pro_cate"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Subcategoria</ion-label>
+      <ion-input type="number" placeholder="" formControlName="pro_subcate"></ion-input>
+    </ion-item>
+    <ion-button type="submit" shape="round" color="primary" expand="block" [disabled]="!productosForm.valid">
+      Enviar
+    </ion-button>
+  </form>
+</ion-content>

@@ -5,7 +5,7 @@ export interface Producto {
   descripcion: string;
   imagen: string;
   stock: number;
-  valoraciones: number;
+  cantidad: number;
 }
 
 export interface Comentario {
