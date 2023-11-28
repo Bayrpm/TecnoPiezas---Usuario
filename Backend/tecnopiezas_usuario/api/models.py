@@ -63,4 +63,12 @@ class DetalleBodega(models.Model):
 
     def __str__(self):
         return f"Detalle de {self.bodega.nombre} - Producto: {self.producto.nombre}"
-    
+
+class GuiaDespacho(models.Model):
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    # Otros campos de la guía de despacho
+
+class ProductoEnGuia(models.Model):
+    guia_despacho = models.ForeignKey(GuiaDespacho, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField()

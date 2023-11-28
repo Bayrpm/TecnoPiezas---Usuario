@@ -185,21 +185,23 @@ export class ProductosService {
     return this.carrito.reduce((total, producto) => total + producto.precio * producto.stock, 0);
   }
   finalizarCompra(): void {
-    this.carrito.forEach((producto) => {
-      // Restar la cantidad comprada del stock
-      producto.stock -= producto.cantidad;
+    
+    this.router.navigate(['/checkout']);
 
-      // Establecer la cantidad en 0 ya que se compraron todos los existentes
-      producto.cantidad = 0;
-    });
-
-    this.vaciarCarrito();
   }
 
 
   private actualizarCarrito(): void {
     this.carritoSubject.next([...this.carrito]);
     localStorage.setItem('carrito', JSON.stringify(this.carrito));
+  }
+
+  getLocales(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/locales/`);
+  }
+
+  crearGuiaDespacho(idLocal: number, productos: any[]) {
+    return this.http.post(`${this.apiUrl}/crear-guia-despacho`, { idLocal, productos });
   }
 
 
