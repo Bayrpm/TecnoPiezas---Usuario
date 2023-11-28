@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from .models import *
 
 from rest_framework import generics
@@ -16,6 +17,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.http import require_POST
 
 
 # Vista basada en una clase
@@ -134,4 +136,33 @@ class DetalleBodega(APIView):
 
 ############################################# Fin Gerente compra #####################################################
 
+@require_POST
+def crear_guia_despacho(request):
+    id_local = int(request.POST.get('idLocal'))  # Obtener el ID del local desde la solicitud POST
+    productos_data = request.POST.getlist('productos[]')  # Obtener los datos de los productos
+    
+    try:
+        local = Locales.objects.get(pk=id_local)  # Obtener el local por su ID
 
+        # Crear una nueva guía de despacho
+        nueva_guia = GuiaDespacho.objects.create(local_retiro=local)
+
+        # Procesar los datos de los productos y crear instancias de ProductoEnGuia asociadas a la guía de despacho
+        for producto_info in productos_data:
+            producto_data = dict(item.split(': ') for item in producto_info.split('\n'))  # Convertir los datos a un diccionario
+            
+            # Obtener los campos específicos del producto
+            nombre = producto_data.get('nombre')
+            cantidad = int(producto_data.get('cantidad'))
+            precio = float(producto_data.get('precio'))
+            # ... otros campos que necesites
+
+            # Crear o obtener el producto desde la base de datos (dependiendo de tu lógica)
+            producto, creado = Producto.objects.get_or_create(nombre=nombre, defaults={'precio': precio})
+
+            # Crear la relación ProductoEnGuia asociada a la nueva guía de despacho
+            ProductoEnGuia.objects.create(guia_despacho=nueva_guia, producto=producto, cantidad=cantidad)
+
+        return JsonResponse({'message': 'Guía de despacho creada correctamente'}, status=200)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

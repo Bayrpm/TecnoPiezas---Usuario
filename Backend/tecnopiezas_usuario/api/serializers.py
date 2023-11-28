@@ -40,5 +40,12 @@ class DetalleBodegaSerializer(serializers.ModelSerializer):
         model = DetalleBodega
         fields = '__all__'
 
+class GuiaDespachoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GuiaDespacho
+        fields = '__all__'
 
-
+class ProductoEnGuiaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductoEnGuia
+        fields = '__all__'

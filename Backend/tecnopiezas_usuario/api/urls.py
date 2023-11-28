@@ -15,7 +15,7 @@ urlpatterns = [
     path('productos/<int:producto_id>/', VistaProductoDAE.as_view(), name='vista-producto-dae'),
   
     path('detallebodega/', DetalleBodega.as_view(), name='detalle_bodega'),
-    #path('detallebodega/<int:id_detalle_bodega>/', DetalleBodegaDAE.as_view(), name='detalle-bodega-dae')
+    path('crear-guia-despacho', views.crear_guia_despacho, name='crear_guia_despacho'),
 
 
 
