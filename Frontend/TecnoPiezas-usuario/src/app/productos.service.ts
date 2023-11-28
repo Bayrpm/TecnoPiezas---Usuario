@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class ProductosService {
   public detalle$: Observable<any> = this.detalleSubject.asObservable();
 
 
-  private carrito: Producto[] = [];
+  public  carrito: Producto[] = [];
   private carritoSubject = new BehaviorSubject<Producto[]>(this.carrito);
   carrito$ = this.carritoSubject.asObservable();
 
@@ -191,7 +191,7 @@ export class ProductosService {
   }
 
 
-  private actualizarCarrito(): void {
+  public  actualizarCarrito(): void {
     this.carritoSubject.next([...this.carrito]);
     localStorage.setItem('carrito', JSON.stringify(this.carrito));
   }
@@ -200,9 +200,37 @@ export class ProductosService {
     return this.http.get(`${this.apiUrl}/locales/`);
   }
 
-  crearGuiaDespacho(idLocal: number, productos: any[]) {
-    return this.http.post(`${this.apiUrl}/crear-guia-despacho`, { idLocal, productos });
-  }
+// productos.service.ts
+
+private getCsrfToken(): string {
+  const cookieValue = document.cookie.match('(^|;)\\s*' + 'csrftoken' + '\\s*=\\s*([^;]+)')?.pop() || '';
+  return cookieValue;
+}
+
+crearGuiaDespacho(id_locales: number, carrito: any[]): Observable<any> {
+  const csrfToken = this.getCsrfToken();
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrfToken,
+  });
+
+  return this.http.post(`${this.apiUrl}/crear-guia-despacho`, { id_locales, carrito }, { headers, withCredentials: true })
+    .pipe(
+      catchError((error) => {
+        console.error('Error in crearGuiaDespacho:', error);
+        throw error; // Ensure to throw the error again for handling in the calling component
+      }),
+      map((response) => {
+        // Assuming the response contains updated information after creating the guide.
+        // If the response structure is different, adjust this accordingly.
+        this.carrito = []; // Clear the shopping cart
+        this.carritoSubject.next([...this.carrito]);
+        localStorage.removeItem('carrito'); // Remove the cart from local storage as it's now empty
+        return response; // Pass along the response for further processing in the calling component
+      })
+    );
+}
+
 
 
   // Métodos para registrar usuarios y crear perfiles

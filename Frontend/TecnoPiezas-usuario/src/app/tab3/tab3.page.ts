@@ -44,8 +44,9 @@ export class Tab3Page implements OnInit {
 
   private calcularTotal(): void {
     this.total = this.productosEnCarrito.reduce(
-      (total, producto) => total + producto.precio * producto.stock,
+      (total, producto) => total + producto.precio * producto.cantidad,
       0
     );
   }
+  
 }
