@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductosService } from 'src/app/productos.service';
+import { ProductosService } from '../../productos.service';
 
 @Component({
   selector: 'app-checkout',
@@ -30,34 +30,40 @@ export class CheckoutPage implements OnInit {
       }
     );
   }
+// checkout.page.ts
 
-  realizarCompra() {
-    if (this.localSeleccionado) {
-      const carritoStr = localStorage.getItem('carrito');
-  
-      if (carritoStr !== null) {
-        const carrito = JSON.parse(carritoStr);
-  
-        if (carrito && carrito.length > 0) {
-          this.productosService.crearGuiaDespacho(this.localSeleccionado, carrito).subscribe(
-            (response: any) => {
-              console.log('Guía de despacho creada:', response);
-              alert('Compra realizada con éxito');
-              this.router.navigate(['/']);
-            },
-            (error: any) => {
-              console.error('Error al crear la guía de despacho:', error);
-            }
-          );
-        } else {
-          alert('El carrito de compras está vacío');
-        }
+realizarCompra() {
+  if (this.localSeleccionado) {
+    const carritoStr = localStorage.getItem('carrito');
+
+    if (carritoStr !== null) {
+      const carrito = JSON.parse(carritoStr);
+
+      if (carrito && carrito.length > 0) {
+        const data = {
+          id_locales: this.localSeleccionado,
+          productos: carrito
+        };
+
+        // Asegúrate de pasar ambos argumentos (id_locales y productos) a la función
+        this.productosService.crearGuiaDespacho(data.id_locales, data.productos).subscribe(
+          (response: any) => {
+            console.log('Guía de despacho creada:', response);
+            alert('Compra realizada con éxito');
+            this.router.navigate(['/']);
+          },
+          (error: any) => {
+            console.error('Error al crear la guía de despacho:', error);
+          }
+        );
       } else {
-        alert('El carrito de compras no existe en el localStorage');
+        alert('El carrito de compras está vacío');
       }
     } else {
-      alert('Por favor, selecciona un local antes de realizar la compra.');
+      alert('El carrito de compras no existe en el localStorage');
     }
+  } else {
+    alert('Por favor, selecciona un local antes de realizar la compra.');
   }
-
+}
 }

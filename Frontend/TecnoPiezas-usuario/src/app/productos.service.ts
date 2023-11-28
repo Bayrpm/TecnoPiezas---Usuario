@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -200,9 +200,29 @@ export class ProductosService {
     return this.http.get(`${this.apiUrl}/locales/`);
   }
 
-  crearGuiaDespacho(idLocal: number, productos: any[]) {
-    return this.http.post(`${this.apiUrl}/crear-guia-despacho`, { idLocal, productos });
-  }
+// productos.service.ts
+
+private getCsrfToken(): string {
+  const cookieValue = document.cookie.match('(^|;)\\s*' + 'csrftoken' + '\\s*=\\s*([^;]+)')?.pop() || '';
+  return cookieValue;
+}
+
+crearGuiaDespacho(id_locales: number, carrito: any[]): Observable<any> {
+  const csrfToken = this.getCsrfToken();
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrfToken,
+  });
+
+  return this.http.post(`${this.apiUrl}/crear-guia-despacho`, { id_locales, carrito }, { headers, withCredentials: true })
+    .pipe(
+      catchError((error) => {
+        console.error('Error in crearGuiaDespacho:', error);
+        throw error; // Asegúrate de lanzar el error nuevamente para que pueda ser manejado en el componente que llama a esta función
+      })
+    );
+}
+
 
 
   // Métodos para registrar usuarios y crear perfiles

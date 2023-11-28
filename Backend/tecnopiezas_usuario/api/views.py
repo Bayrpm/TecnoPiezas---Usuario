@@ -5,7 +5,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-
+from django.http import JsonResponse
 from .serializers import *
 
 
@@ -136,33 +136,31 @@ class DetalleBodega(APIView):
 
 ############################################# Fin Gerente compra #####################################################
 
+# views.py
+
 @require_POST
 def crear_guia_despacho(request):
-    id_local = int(request.POST.get('idLocal'))  # Obtener el ID del local desde la solicitud POST
-    productos_data = request.POST.getlist('productos[]')  # Obtener los datos de los productos
-    
     try:
-        local = Locales.objects.get(pk=id_local)  # Obtener el local por su ID
+        id_locales_str = request.POST.get('id_locales')
+        productos_data = request.POST.getlist('productos[]')
 
-        # Crear una nueva guía de despacho
-        nueva_guia = GuiaDespacho.objects.create(local_retiro=local)
+        if id_locales_str is None:
+            return JsonResponse({'error': 'The "id_locales" field is required in the POST data.'}, status=400)
+        
+        id_locales = int(id_locales_str)
+        print(f"Received id_locales: {id_locales}")
 
-        # Procesar los datos de los productos y crear instancias de ProductoEnGuia asociadas a la guía de despacho
-        for producto_info in productos_data:
-            producto_data = dict(item.split(': ') for item in producto_info.split('\n'))  # Convertir los datos a un diccionario
-            
-            # Obtener los campos específicos del producto
-            nombre = producto_data.get('nombre')
-            cantidad = int(producto_data.get('cantidad'))
-            precio = float(producto_data.get('precio'))
-            # ... otros campos que necesites
+        local = Locales.objects.get(pk=id_locales)
 
-            # Crear o obtener el producto desde la base de datos (dependiendo de tu lógica)
-            producto, creado = Producto.objects.get_or_create(nombre=nombre, defaults={'precio': precio})
-
-            # Crear la relación ProductoEnGuia asociada a la nueva guía de despacho
-            ProductoEnGuia.objects.create(guia_despacho=nueva_guia, producto=producto, cantidad=cantidad)
+        # Resto de tu código...
 
         return JsonResponse({'message': 'Guía de despacho creada correctamente'}, status=200)
+
+    except Locales.DoesNotExist:
+        return JsonResponse({'error': 'Local not found with the given ID'}, status=404)
+
+    except ValueError:
+        return JsonResponse({'error': 'Invalid value for "id_locales". Must be a valid integer.'}, status=400)
+
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+        return JsonResponse({'error': str(e)}, status=400)
