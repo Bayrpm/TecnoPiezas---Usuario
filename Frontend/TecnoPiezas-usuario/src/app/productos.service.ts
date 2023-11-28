@@ -24,7 +24,7 @@ export class ProductosService {
   public detalle$: Observable<any> = this.detalleSubject.asObservable();
 
 
-  private carrito: Producto[] = [];
+  public  carrito: Producto[] = [];
   private carritoSubject = new BehaviorSubject<Producto[]>(this.carrito);
   carrito$ = this.carritoSubject.asObservable();
 
@@ -191,7 +191,7 @@ export class ProductosService {
   }
 
 
-  private actualizarCarrito(): void {
+  public  actualizarCarrito(): void {
     this.carritoSubject.next([...this.carrito]);
     localStorage.setItem('carrito', JSON.stringify(this.carrito));
   }
@@ -218,7 +218,15 @@ crearGuiaDespacho(id_locales: number, carrito: any[]): Observable<any> {
     .pipe(
       catchError((error) => {
         console.error('Error in crearGuiaDespacho:', error);
-        throw error; // Asegúrate de lanzar el error nuevamente para que pueda ser manejado en el componente que llama a esta función
+        throw error; // Ensure to throw the error again for handling in the calling component
+      }),
+      map((response) => {
+        // Assuming the response contains updated information after creating the guide.
+        // If the response structure is different, adjust this accordingly.
+        this.carrito = []; // Clear the shopping cart
+        this.carritoSubject.next([...this.carrito]);
+        localStorage.removeItem('carrito'); // Remove the cart from local storage as it's now empty
+        return response; // Pass along the response for further processing in the calling component
       })
     );
 }

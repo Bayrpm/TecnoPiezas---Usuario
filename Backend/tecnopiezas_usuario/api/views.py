@@ -137,16 +137,21 @@ class DetalleBodega(APIView):
 ############################################# Fin Gerente compra #####################################################
 
 # views.py
+from django.http import JsonResponse
+import json
 
 @require_POST
 def crear_guia_despacho(request):
     try:
-        id_locales_str = request.POST.get('id_locales')
-        productos_data = request.POST.getlist('productos[]')
+        data = request.body.decode('utf-8')
+        json_data = json.loads(data)
+
+        id_locales_str = json_data.get('id_locales')
+        productos_data = json_data.get('productos', [])
 
         if id_locales_str is None:
-            return JsonResponse({'error': 'The "id_locales" field is required in the POST data.'}, status=400)
-        
+            return JsonResponse({'error': 'The "id_locales" field is required in the JSON data.'}, status=400)
+
         id_locales = int(id_locales_str)
         print(f"Received id_locales: {id_locales}")
 
